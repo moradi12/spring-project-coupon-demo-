@@ -25,7 +25,6 @@ public class CrudCoupon implements CommandLineRunner {
             createCoupon("PC", Category.Computer, " coupon for pc", 10, 69.99, "image-url");
             createCoupon("Hotels discount", Category.Vacation, " Vacation Discount", 5, 799.90, "image-url");
         } catch (Exception e) {
-            // Handle any exceptions that might occur during coupon creation
             System.out.println("Error occurred during coupon creation: " + ErrMsg.COUPON_ERROR.getMsg());
         }
     }
@@ -46,7 +45,6 @@ public class CrudCoupon implements CommandLineRunner {
             couponRepository.save(coupon);
             System.out.println("Coupon '" + title + "' created successfully.");
         } catch (Exception e) {
-            // Handle any exceptions that might occur during coupon creation
             System.out.println("Error occurred during coupon creation for '" + title + "': " + ErrMsg.COUPON_ERROR.getMsg());
         }
     }

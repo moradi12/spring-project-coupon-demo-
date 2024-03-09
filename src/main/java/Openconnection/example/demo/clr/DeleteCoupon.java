@@ -15,14 +15,13 @@ public class DeleteCoupon {
     @Autowired
     private CouponRepository couponRepository;
 
-    public void deleteCouponById(Integer couponId) {
+    public void deleteCouponById(Integer couponId) throws CouponNotFoundException {
         Optional<Coupon> couponToDelete = getCouponById(couponId);
         if (couponToDelete.isPresent()) {
             couponRepository.delete(couponToDelete.get());
-            couponRepository.flush(); // Flush changes to the database
             System.out.println("Coupon " + couponId + " deleted successfully!");
         } else {
-            System.out.println(ErrMsg.COUPON_NOT_FOUND.getMsg());
+            throw new CouponNotFoundException(ErrMsg.COUPON_NOT_FOUND.getMsg());
         }
     }
 
