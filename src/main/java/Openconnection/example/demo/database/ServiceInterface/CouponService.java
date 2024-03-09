@@ -15,9 +15,6 @@ public interface CouponService {
 
     void deleteCoupon(int couponID) throws CouponNotFoundException;
 
-
-
-
     List<Coupon> getAllCoupons() throws CouponNotFoundException;
 
     Optional<Coupon> getOneCoupon(int couponID) throws CouponNotFoundException;

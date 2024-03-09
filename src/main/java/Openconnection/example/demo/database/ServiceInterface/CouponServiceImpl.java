@@ -48,7 +48,10 @@ public class CouponServiceImpl implements CouponService {
 
     @Override
     public Optional<Coupon> getOneCoupon(int couponID) throws CouponNotFoundException {
-        return Optional.ofNullable(couponRepository.findById(couponID)
-                .orElseThrow(() -> new CouponNotFoundException(ErrMsg.COUPON_ID_NOT_FOUND.getMsg())));
+        Optional<Coupon> couponOptional = couponRepository.findById(couponID);
+        if (couponOptional.isEmpty()) {
+            throw new CouponNotFoundException(ErrMsg.COUPON_ID_NOT_FOUND.getMsg());
+        }
+        return couponOptional;
     }
 }
