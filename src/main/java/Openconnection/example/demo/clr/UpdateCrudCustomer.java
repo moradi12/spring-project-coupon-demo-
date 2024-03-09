@@ -9,6 +9,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
+
 @Component
 @Order(8)
 public class UpdateCrudCustomer implements CommandLineRunner {
@@ -16,21 +17,35 @@ public class UpdateCrudCustomer implements CommandLineRunner {
     @Autowired
     private CustomerRepository customerRepository;
 
-    @Override
     public void run(String... args) throws Exception {
-        Optional<Customer> optionalCustomer = customerRepository.findById(1); // Assuming the customer with ID 1!!!!!
-
-        if (optionalCustomer.isPresent()) {
-            Customer customer = optionalCustomer.get();
-            customer.setFirstName("Donatello");
-            customer.setLastName("Pro");
-            customerRepository.saveAndFlush(customer);
-            System.out.println("Customer updated successfully: " + customer);
-        } else {
-            System.out.println(ErrMsg.CUSTOMER_NOT_FOUND.getMsg());
-        }
+        customerRepository.findById(1)
+                .ifPresentOrElse(
+                        customer -> {
+                            customer.setFirstName("Donatello");
+                            customer.setLastName("Pro");
+                            customerRepository.saveAndFlush(customer);
+                            System.out.println("Customer updated successfully: " + customer);
+                        },
+                        () -> System.out.println(ErrMsg.CUSTOMER_NOT_FOUND.getMsg()));
     }
 }
+
+
+//    @Override
+//    public void run(String... args) throws Exception {
+//        Optional<Customer> optionalCustomer = customerRepository.findById(1); // Assuming the customer with ID 1!!!!!
+//
+//        if (optionalCustomer.isPresent()) {
+//            Customer customer = optionalCustomer.get();
+//            customer.setFirstName("Donatello");
+//            customer.setLastName("Pro");
+//            customerRepository.saveAndFlush(customer);
+//            System.out.println("Customer updated successfully: " + customer);
+//        } else {
+//            System.out.println(ErrMsg.CUSTOMER_NOT_FOUND.getMsg());
+//        }
+//    }
+//}
 
 //
 //    public void updateCouponCategory() {
