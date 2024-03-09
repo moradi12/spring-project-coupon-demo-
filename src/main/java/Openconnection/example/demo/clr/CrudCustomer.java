@@ -5,9 +5,11 @@ import Openconnection.example.demo.database.Repository.CustomerRepository;
 import Openconnection.example.demo.database.beans.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
+@Order(3)
 public class CrudCustomer implements CommandLineRunner {
 
     private final CustomerRepository customerRepository;
