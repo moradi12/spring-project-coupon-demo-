@@ -1,5 +1,6 @@
 package Openconnection.example.demo.clr;
 
+import Openconnection.example.demo.Exceptions.CustomerException;
 import Openconnection.example.demo.Exceptions.ErrMsg;
 import Openconnection.example.demo.database.Repository.CustomerRepository;
 import Openconnection.example.demo.database.beans.Customer;
@@ -21,8 +22,12 @@ public class CrudCustomer implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        addCustomer("John", "Doe", "john@example.com", "password123");
-        addCustomer("Janna", "Smith", "janna@example.com", "password456");
+        try {
+            addCustomer("John", "Doe", "john@example.com", "password123");
+            addCustomer("Janna", "Smith", "janna@example.com", "password456");
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void addCustomer(String firstName, String lastName, String email, String password) {

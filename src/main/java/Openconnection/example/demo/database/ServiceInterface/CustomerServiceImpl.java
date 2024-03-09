@@ -1,15 +1,11 @@
 package Openconnection.example.demo.database.ServiceInterface;
 
-import Openconnection.example.demo.Exceptions.CompanyNotFoundException;
-import Openconnection.example.demo.Exceptions.CouponNotFoundException;
 import Openconnection.example.demo.Exceptions.CustomerException;
 import Openconnection.example.demo.Exceptions.ErrMsg;
 import Openconnection.example.demo.database.Repository.CustomerRepository;
-import Openconnection.example.demo.database.beans.Coupon;
 import Openconnection.example.demo.database.beans.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
 import java.util.Optional;
 
 public class CustomerServiceImpl implements CustomerService {
@@ -57,27 +53,29 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void deleteCustomer(int customerID) {
+    public void deleteCustomer(int customerID) throws CustomerException {
+        if (!customerRepository.existsById(customerID)) {
+            throw new CustomerException(ErrMsg.CUSTOMER_NOT_FOUND);
+        }
+        customerRepository.deleteById(customerID);
 
     }
 
     @Override
     public Optional<Customer> getOneCustomer(int customerID) throws CustomerException {
-        return Optional.empty();
+        Optional<Customer> customer = customerRepository.findById(customerID);
+        if (customer.isEmpty()) {
+            throw new CustomerException(ErrMsg.CUSTOMER_NOT_FOUND);
+        }
+        return customer;
     }
 
     @Override
-    public List<Customer> findById(int id) {
-        return null;
-    }
-
-    @Override
-    public List<Customer> findByName(String name) {
-        return null;
-    }
-
-    @Override
-    public List<Customer> getCustomersByCompany(int companyId) throws CompanyNotFoundException {
-        return null;
+    public Optional<Customer> findById(int id) throws CustomerException {
+        Optional<Customer> customers = customerRepository.findById(id);
+        if (customers.isEmpty()) {
+            throw new CustomerException(ErrMsg.CUSTOMER_NOT_FOUND);
+        }
+        return customers;
     }
 }

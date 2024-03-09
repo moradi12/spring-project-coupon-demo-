@@ -1,11 +1,8 @@
 package Openconnection.example.demo.database.ServiceInterface;
 
-
-import Openconnection.example.demo.Exceptions.CompanyNotFoundException;
 import Openconnection.example.demo.Exceptions.CustomerException;
 import Openconnection.example.demo.database.beans.Customer;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface CustomerService {
@@ -17,12 +14,9 @@ public interface CustomerService {
 
     void updateCustomer(Customer customer) throws CustomerException;
 
-    void deleteCustomer(int customerID);
+    void deleteCustomer(int customerID) throws CustomerException;
 
     Optional<Customer> getOneCustomer(int customerID) throws CustomerException;
 
-    List<Customer> findById(int id);
-
-    List<Customer> findByName(String name);
-
-    List<Customer> getCustomersByCompany(int companyId) throws CompanyNotFoundException;}
+    Optional<Customer> findById(int id) throws CustomerException;
+}
