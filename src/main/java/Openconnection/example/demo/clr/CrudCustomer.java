@@ -20,15 +20,28 @@ public class CrudCustomer implements CommandLineRunner {
         this.customerRepository = customerRepository;
     }
 
+
+    /**
+     * Runs the command line task to add customers
+     */
     @Override
     public void run(String... args) throws Exception {
         try {
             addCustomer("John", "Doe", "john@example.com", "password123");
-            addCustomer("Janna", "Smith", "janna@example.com", "password456");
+            addCustomer("Dani", "Dean", "Dean@mail.com", "pas321");
+            addCustomer("Janna", "Smith", "janna@botic.com", "password456");
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
         }
     }
+
+    /**
+     * Adds a customer to the database if it doesn't already exist
+     * @param firstName The first name of the customer
+     * @param lastName The last name of the customer
+     * @param email The email of the customer
+     * @param password The password of the customer
+     */
 
     private void addCustomer(String firstName, String lastName, String email, String password) {
         if (!customerRepository.existsByEmailAndPassword(email, password)) {

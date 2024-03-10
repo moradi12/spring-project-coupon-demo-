@@ -18,16 +18,30 @@ public class CrudCoupon implements CommandLineRunner {
     @Autowired
     CouponRepository couponRepository;
 
+
+    /**
+     */
     @Override
     public void run(String... args) {
         try {
             createCoupon("Food Coupon", Category.Food, " coupon", 10, 19.99, "image-url");
-            createCoupon("PC", Category.Computer, " coupon for pc", 10, 69.99, "image-url");
+            createCoupon("PC", Category.Computer, " coupon for pc", 17, 69.99, "image-url");
             createCoupon("Hotels discount", Category.Vacation, " Vacation Discount", 5, 799.90, "image-url");
+            createCoupon("PS5 discount", Category.Electricity, " PS5", 8, 999.90, "image-url");
         } catch (Exception e) {
             System.out.println("Error occurred during coupon creation: " + ErrMsg.COUPON_ERROR.getMsg());
         }
     }
+
+    /**
+     * Creates a coupon and saves it to the database
+     * @param title The title of the coupon
+     * @param category The category of the coupon
+     * @param description The description of the coupon
+     * @param amount The amount of the coupon.
+     * @param price The price of the coupon
+     * @param image The image URL of the coupon
+     */
 
     private void createCoupon(String title, Category category, String description, int amount, double price, String image) {
         Coupon coupon = Coupon.builder()

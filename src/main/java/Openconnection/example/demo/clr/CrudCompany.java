@@ -21,15 +21,31 @@ public class CrudCompany implements CommandLineRunner {
         this.companyRepository = companyRepository;
     }
 
+
+    /**
+     * Runs the command line task to create companies if they do not already exist
+     */
+
     @Override
     public void run(String... args) {
         try {
             createCompanyIfNotExists("David Company", "Company@Company.com", "password123");
             createCompanyIfNotExists("Shai Company", "Shai@dora.com", "popo321");
+            createCompanyIfNotExists("DanaAb", "Dana@AB.com", "s1587DD");
+            createCompanyIfNotExists("Moti", "MOti@mail.com", "Motale");
+            createCompanyIfNotExists("Katarian", "Kata@mail.com", "Kitty");
         } catch (Exception e) {
             System.out.println("Error occurred during company creation:" + ErrMsg.COMPANY_ERROR.getMsg());
         }
     }
+
+
+    /**
+     * Creates a company if it does not already exist
+     * @param name The name of the company
+     * @param email The email of the company
+     * @param password The password of the company
+     */
 
     private void createCompanyIfNotExists(String name, String email, String password) {
         Optional<Company> existingCompany = companyRepository.findByName(name);

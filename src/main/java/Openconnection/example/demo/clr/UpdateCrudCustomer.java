@@ -16,7 +16,9 @@ public class UpdateCrudCustomer implements CommandLineRunner {
 
     @Autowired
     private CustomerRepository customerRepository;
-
+    /**
+     * Runs the command line task to update a customer.
+     */
     public void run(String... args) throws Exception {
         customerRepository.findById(1)
                 .ifPresentOrElse(

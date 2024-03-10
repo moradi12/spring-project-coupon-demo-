@@ -18,7 +18,9 @@ public class DeleteCoupon implements CommandLineRunner {
     public DeleteCoupon(CouponRepository couponRepository) {
         this.couponRepository = couponRepository;
     }
-
+    /**
+     *Deletes a coupon if it exists with ID 2
+     **/
     @Override
     public void run(String... args) throws Exception {
         // Assuming coupon with ID 2 exists
