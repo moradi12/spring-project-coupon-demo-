@@ -1,4 +1,4 @@
-package Openconnection.example.demo.clr;
+package Openconnection.example.demo.clr.Customer;
 
 import Openconnection.example.demo.Exceptions.ErrMsg;
 import Openconnection.example.demo.database.Repository.CustomerRepository;
@@ -31,7 +31,6 @@ public class UpdateCrudCustomer implements CommandLineRunner {
                         () -> System.out.println(ErrMsg.CUSTOMER_NOT_FOUND.getMsg()));
     }
 }
-
 
 //    @Override
 //    public void run(String... args) throws Exception {

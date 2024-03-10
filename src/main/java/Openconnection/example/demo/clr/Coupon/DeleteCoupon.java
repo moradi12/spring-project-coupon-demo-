@@ -1,4 +1,4 @@
-package Openconnection.example.demo.clr;
+package Openconnection.example.demo.clr.Coupon;
 
 import Openconnection.example.demo.database.Repository.CouponRepository;
 import Openconnection.example.demo.database.beans.Coupon;

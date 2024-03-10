@@ -1,4 +1,4 @@
-package Openconnection.example.demo.clr;
+package Openconnection.example.demo.clr.Company;
 
 import Openconnection.example.demo.Exceptions.ErrMsg;
 import Openconnection.example.demo.database.Repository.CompanyRepository;

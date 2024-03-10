@@ -1,4 +1,4 @@
-package Openconnection.example.demo.clr;
+package Openconnection.example.demo.clr.Customer;
 
 import Openconnection.example.demo.Exceptions.CustomerException;
 import Openconnection.example.demo.Exceptions.ErrMsg;
@@ -20,16 +20,17 @@ public class CrudCustomer implements CommandLineRunner {
         this.customerRepository = customerRepository;
     }
 
-
     /**
-     * Runs the command line task to add customers
-     */
+     * Runs the command line task to add customers */
     @Override
     public void run(String... args) throws Exception {
         try {
             addCustomer("John", "Doe", "john@example.com", "password123");
+            addCustomer("DavidJR", "Kor", "Kori@emai.com", "c3v3x2");
             addCustomer("Dani", "Dean", "Dean@mail.com", "pas321");
+            addCustomer("Daniela", "Sade", "Sade@mail.com", "Sade3929");
             addCustomer("Janna", "Smith", "janna@botic.com", "password456");
+            addCustomer("Thomas", "Hakatar", "Thomas@mail.com", "Thomasico32");
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
         }

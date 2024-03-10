@@ -6,6 +6,7 @@
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.http.HttpStatus;
 //import org.springframework.stereotype.Controller;
+//import org.springframework.validation.annotation.Validated;
 //import org.springframework.web.bind.annotation.*;
 //
 //import java.util.List;
@@ -32,9 +33,11 @@
 //
 //    //create data
 //    //PostMapping
+//
+//    //validated make sure thats its working
 //    @PostMapping
 //    @ResponseStatus(HttpStatus.CREATED)
-//    public void addCoupon(@RequestBody Coupon coupon) throws CouponNotFoundException {
+//    public void addCoupon(@Validated @RequestBody Coupon coupon) throws CouponNotFoundException {
 //        couponService.addCoupon(coupon);
 //    }
 //
@@ -57,12 +60,12 @@
 //        couponService.deleteCoupon(id);
 //    }
 //
-//@GetMapping("/{id}")
-//@ResponseStatus(HttpStatus.OK)
-//    public Optional<Coupon> getOneCoupon(@PathVariable int id )throws CouponNotFoundException{
+//    @GetMapping("/{id}")
+//    @ResponseStatus(HttpStatus.OK)
+//    public Optional<Coupon> getOneCoupon(@PathVariable int id) throws CouponNotFoundException {
 //        return couponService.getOneCoupon(id);
 //
 //
-//}
+//    }
 //
 //}

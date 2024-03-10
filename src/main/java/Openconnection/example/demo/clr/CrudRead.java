@@ -14,10 +14,8 @@ public class CrudRead implements CommandLineRunner {
     @Autowired
     CouponRepository couponRepository;
     @Autowired
-
     CompanyRepository companyRepository;
     @Autowired
-
     CustomerRepository customerRepository;
 
     @Override

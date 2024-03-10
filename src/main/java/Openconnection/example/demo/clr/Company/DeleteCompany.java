@@ -1,4 +1,4 @@
-package Openconnection.example.demo.clr;
+package Openconnection.example.demo.clr.Company;
 
 import Openconnection.example.demo.Exceptions.ErrMsg;
 import Openconnection.example.demo.database.Repository.CompanyRepository;
@@ -26,7 +26,6 @@ public class DeleteCompany implements CommandLineRunner {
     public void run(String... args) throws Exception {
         // Delete a company by ID
         int companyIdToDelete = 4; // Change this to the ID of the company you want to delete
-
         Optional<Company> companyOptional = companyRepository.findById(companyIdToDelete);
         if (companyOptional.isPresent()) {
             companyRepository.deleteById(companyIdToDelete);

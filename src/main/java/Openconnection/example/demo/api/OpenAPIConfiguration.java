@@ -19,7 +19,7 @@ public class OpenAPIConfiguration {
      * @return OpenAPI object representing the API documentation
      */
     @Bean
-    public OpenAPI defineOpenAPI(){
+    public OpenAPI defineOpenAPI() {
         Server server = new Server();
         server.setUrl("http://localhost:8080");
         server.setDescription("Coupon api for development");
@@ -34,9 +34,7 @@ public class OpenAPIConfiguration {
                 .description("This API exposes endpoints to manage Coupons")
                 .contact(myContact);
 
-        return new OpenAPI()
-                .info(info).
-                servers(List.of(server));
+        return new OpenAPI().info(info).servers(List.of(server));
 
     }
 }
