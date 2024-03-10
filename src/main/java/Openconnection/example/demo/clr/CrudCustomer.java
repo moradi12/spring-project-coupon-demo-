@@ -39,7 +39,7 @@ public class CrudCustomer implements CommandLineRunner {
                     .password(password)
                     .build();
             customerRepository.save(customer);
-            System.out.println("Customer '" + firstName + " " + lastName + "' successfully added.");
+            System.out.println("Customer '" + firstName + " " + lastName + "' successfully added");
         } else {
             throw new RuntimeException(ErrMsg.CUSTOMER_ALREADY_EXISTS.getMsg());
         }

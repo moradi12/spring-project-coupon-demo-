@@ -27,14 +27,14 @@ public class CrudCompany implements CommandLineRunner {
             createCompanyIfNotExists("David Company", "Company@Company.com", "password123");
             createCompanyIfNotExists("Shai Company", "Shai@dora.com", "popo321");
         } catch (Exception e) {
-            System.out.println("Error occurred during company creation: " + ErrMsg.COMPANY_ERROR.getMsg());
+            System.out.println("Error occurred during company creation:" + ErrMsg.COMPANY_ERROR.getMsg());
         }
     }
 
     private void createCompanyIfNotExists(String name, String email, String password) {
         Optional<Company> existingCompany = companyRepository.findByName(name);
         if (existingCompany.isPresent()) {
-            System.out.println("Company '" + name + "' already exists.");
+            System.out.println("Company '" + name + "already exists");
         } else {
             Company company = Company.builder()
                     .name(name)
@@ -42,7 +42,7 @@ public class CrudCompany implements CommandLineRunner {
                     .password(password)
                     .build();
             companyRepository.save(company);
-            System.out.println("Company '" + name + "' created successfully.");
+            System.out.println("Company '" + name + "'created successfully");
         }
     }
 }
