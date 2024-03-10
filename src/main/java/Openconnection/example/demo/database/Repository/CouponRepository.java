@@ -9,7 +9,7 @@ import java.util.List;
 public interface CouponRepository extends JpaRepository<Coupon, Integer> {
 
     List<Coupon> findByCompanyId(Integer companyId);
-
+    Coupon findByTitle(String title);
 
     void deleteByEndDateBefore(Date endDate);
 }
