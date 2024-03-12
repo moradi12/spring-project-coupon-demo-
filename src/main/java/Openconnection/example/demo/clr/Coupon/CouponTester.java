@@ -85,7 +85,7 @@ public class CouponTester implements CommandLineRunner {
                     .price(70.0)
                     .image("updated_fitness_membership.jpg")
                     .build();
-
+//work!!
             couponService.updateCoupon(1, updatedCoupon);
 
             couponService.deleteCoupon(3);
