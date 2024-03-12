@@ -4,10 +4,12 @@ import Openconnection.example.demo.database.beans.Coupon;import Openconnection.e
 import Openconnection.example.demo.Exceptions.ErrMsg;
 import Openconnection.example.demo.database.Repository.CouponRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CouponServiceImpl implements CouponService {
 
     @Autowired

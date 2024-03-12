@@ -1,9 +1,12 @@
 package Openconnection.example.demo.database.ServiceInterface;
 
 import Openconnection.example.demo.Exceptions.CompanyNotFoundException;
+import Openconnection.example.demo.Exceptions.CouponNotFoundException;
 import Openconnection.example.demo.Exceptions.ErrMsg;
 import Openconnection.example.demo.database.Repository.CompanyRepository;
+import Openconnection.example.demo.database.beans.Category;
 import Openconnection.example.demo.database.beans.Company;
+import Openconnection.example.demo.database.beans.Coupon;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -13,12 +16,11 @@ public class CompanyServiceImpl implements CompanyService {
     @Autowired
     CompanyRepository companyRepository;
 
-    //        int id = coupon.getId();
-    //        if (couponRepository.existsById(id)) {
-    //            throw new CouponNotFoundException(ErrMsg.COMPANY_ALREADY_EXISTS.getMsg());
-    //        }
-    //        couponRepository.save(coupon);
-    //    }//
+    @Override
+    public boolean login(String email, String password) throws CompanyNotFoundException {
+        return false;
+    }
+
     @Override
     public boolean isCompanyExists(String email, String password) throws CompanyNotFoundException {
         if (!companyRepository.existsByEmailAndPassword(email, password)) {
@@ -26,6 +28,36 @@ public class CompanyServiceImpl implements CompanyService {
         }
         return true;
     }
+
+
+    @Override
+    public void addCoupon(Coupon coupon) throws CouponNotFoundException {
+
+    }
+
+    @Override
+    public void updateCoupon(Coupon coupon) throws CouponNotFoundException {
+
+
+    }
+
+    @Override
+    public void deleteCoupon(int couponID) throws CouponNotFoundException {
+
+    }
+
+
+
+
+    @Override
+    public void saveAndFlush(Company company) throws CompanyNotFoundException {
+        try {
+            companyRepository.saveAndFlush(company);
+        } catch (Exception ex) {
+            throw new CompanyNotFoundException(ErrMsg.COMPANY_ERROR.getMsg());
+        }
+    }
+
 
     @Override
     public void addCompany(Company company) throws CompanyNotFoundException {
@@ -65,6 +97,30 @@ public class CompanyServiceImpl implements CompanyService {
         }
         return companyOptional;
     }
+
+    @Override
+    public List<Coupon> companyCoupons() throws CompanyNotFoundException {
+
+        return null;
+    }
+
+    @Override
+    public List<Coupon> companyCoupons(Category category) throws CompanyNotFoundException {
+        return null;
+    }
+
+    @Override
+    public List<Coupon> companyCoupons(double MaxPrice) throws CompanyNotFoundException {
+
+
+        return null;
+    }
+
+    @Override
+    public void getCompanyDetails(Company company) {
+
+    }
+
 
     @Override
     public void saveAll(List<Company> companies) throws CompanyNotFoundException {

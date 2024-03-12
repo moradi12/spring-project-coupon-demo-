@@ -30,4 +30,14 @@ public class DeleteCoupon implements CommandLineRunner {
             System.out.println("Coupon with ID " + coupon.getId() + "has been deleted");
         });
     }
+
+
+
+
 }
+////in service
+// get client
+//remove coupon from cleint coupon list
+///save the cleint
+////// delete the coupon
+///

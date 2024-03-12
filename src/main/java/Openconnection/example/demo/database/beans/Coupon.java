@@ -38,7 +38,6 @@ public class Coupon {
     @Column(nullable = false)
     private String title;
 
-
     @Column(name = "start_date", nullable = false)
     private Date startDate;
 

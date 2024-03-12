@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public interface CouponService {
 
+
     void addCoupon(Coupon coupon) throws CouponNotFoundException;
 
     void updateCoupon(int id, Coupon coupon) throws CouponNotFoundException;

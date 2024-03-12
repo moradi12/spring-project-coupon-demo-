@@ -14,7 +14,7 @@ import java.util.Optional;
 @Order(2)
 public class CrudCompany implements CommandLineRunner {
 
-    private final CompanyRepository companyRepository;
+        private final CompanyRepository companyRepository;
 
     @Autowired
     public CrudCompany(CompanyRepository companyRepository) {
