@@ -14,4 +14,7 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
     Boolean existsByEmail(String email);
 
     Optional<Company> findById(int id);
+
+
+
 }

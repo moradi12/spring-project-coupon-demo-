@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CompanyService {
-    boolean login(String email, String password) throws CompanyNotFoundException;
 
     void addCoupon(Coupon coupon)throws CouponNotFoundException;
     void updateCoupon(Coupon coupon)throws CouponNotFoundException;
@@ -23,11 +22,8 @@ public interface CompanyService {
     List<Coupon>companyCoupons(double MaxPrice)throws CompanyNotFoundException;
     void getCompanyDetails(Company company);
 
-
-
     boolean isCompanyExists(String email, String password) throws CompanyNotFoundException;
 
-    void saveAndFlush(Company company) throws CompanyNotFoundException;
 
     void addCompany(Company company) throws CompanyNotFoundException;
 

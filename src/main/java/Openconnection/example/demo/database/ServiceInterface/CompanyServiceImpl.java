@@ -34,10 +34,6 @@ public class CompanyServiceImpl implements CompanyService {
     }
 ///todo : DO i even need it ?!!?!?!!
 
-    @Override
-    public boolean login(String email, String password) throws CompanyNotFoundException {
-        return false;
-    }
 
     @Override
     public void addCoupon(Coupon coupon) throws CouponNotFoundException {
@@ -63,14 +59,6 @@ public class CompanyServiceImpl implements CompanyService {
         couponRepository.deleteById(couponID);
     }
 
-    @Override
-    public void saveAndFlush(Company company) throws CompanyNotFoundException {
-        try {
-            companyRepository.saveAndFlush(company);
-        } catch (Exception ex) {
-            throw new CompanyNotFoundException(ErrMsg.COMPANY_ERROR.getMsg());
-        }
-    }
 
     @Override
     public void addCompany(Company company) throws CompanyNotFoundException {
@@ -95,6 +83,7 @@ public class CompanyServiceImpl implements CompanyService {
             throw new CompanyNotFoundException(ErrMsg.COMPANY_NOT_FOUND.getMsg());
         }
         companyRepository.deleteById(companyID);
+
     }
 
     @Override

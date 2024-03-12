@@ -18,6 +18,7 @@ public interface CouponService {
     List<Coupon> getAllCoupons() throws CouponNotFoundException;
 
     Optional<Coupon> getOneCoupon(int couponID) throws CouponNotFoundException;
+
     boolean couponExistsByTitleAndCompany(String title, int companyId);
     boolean couponExistsByTitle(String title);
 }
