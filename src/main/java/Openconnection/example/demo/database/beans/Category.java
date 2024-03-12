@@ -5,5 +5,10 @@ public enum Category {
     Electricity,
     Restaurant,
     Vacation,
-    Computer
+    Computer,
+    Health,
+    Travel,
+    Clothing,
+
+
 }

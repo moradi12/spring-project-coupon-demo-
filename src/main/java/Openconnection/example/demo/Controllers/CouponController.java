@@ -23,6 +23,8 @@ public class CouponController {
 
     // getting data
 
+    //getting all the coupons!!!
+
     //GetMapping//
 
     @GetMapping
@@ -46,6 +48,9 @@ public class CouponController {
     //put = update
     //PutMapping
     ///select the id to update the coupon
+
+
+
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateCoupon(@PathVariable int id, @RequestBody Coupon coupon) throws CouponNotFoundException {

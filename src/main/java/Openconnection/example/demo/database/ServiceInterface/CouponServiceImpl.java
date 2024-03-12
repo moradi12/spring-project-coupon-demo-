@@ -56,4 +56,14 @@ public class CouponServiceImpl implements CouponService {
         }
         return couponOptional;
     }
+
+    @Override
+    public boolean couponExistsByTitleAndCompany(String title, int companyId) {
+        return false;
+    }
+
+    @Override
+    public boolean couponExistsByTitle(String title) {
+        return false;
+    }
 }

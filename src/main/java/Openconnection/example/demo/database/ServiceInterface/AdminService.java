@@ -19,6 +19,7 @@ public interface AdminService {
     void addCustomer(Customer customer);
     void updateCustomer(Customer customer);
     void deleteCustomer(int customerID);
+
     List<Customer>getAllCustomers();
     void getOneCustomer(int customerID);
 

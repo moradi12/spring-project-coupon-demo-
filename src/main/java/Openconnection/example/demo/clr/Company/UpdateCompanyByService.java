@@ -6,13 +6,13 @@ import Openconnection.example.demo.database.ServiceInterface.CompanyService;
 import Openconnection.example.demo.database.beans.Company;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
+import org.springframework.stereotype.Component;
 
-//@Component
-//@Order(5)
+@Component
+@Order(5)
 public class UpdateCompanyByService implements CommandLineRunner {
-
     private final int companyIdToUpdate = 1; // The company ID to update
-
     @Autowired
     private CompanyService companyService;
 
@@ -27,19 +27,18 @@ public class UpdateCompanyByService implements CommandLineRunner {
         }
     }
 
+
     private void updateCompanyById(int companyId) throws CompanyNotFoundException {
         Company company = companyService.getOneCompany(companyId)
                 .orElseThrow(() -> new CompanyNotFoundException(ErrMsg.COMPANY_NOT_FOUND.getMsg()));
-
-        company.setEmail("new_email@example.com");
-        company.setPassword("new_password");
-
+        company.setEmail("DanaBannana@example.com");
+        company.setPassword("PleaseWork");
         try {
             companyService.updateCompany(company);
             companyService.saveAndFlush(company);
             System.out.println("Company updated successfully with ID: " + companyId);
         } catch (Exception e) {
-            System.out.println("Failed to update company with ID " + companyId + ": " + e.getMessage());
+            System.out.println("Failed to update company with ID " + companyId + "Error!" + e.getMessage());
         }
     }
 }
