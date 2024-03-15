@@ -10,6 +10,7 @@ import Openconnection.example.demo.beans.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,6 +34,11 @@ public class CustomerServiceImpl implements CustomerService {
         }
         customerRepository.save(customer);
         System.out.println("Customer added " + customer);
+    }
+
+    @Override
+    public List<Customer> getAllCustomers() throws CustomerException {
+        return customerRepository.findAll();
     }
 
 

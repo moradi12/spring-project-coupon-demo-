@@ -9,7 +9,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
-@Order(4)
+@Order(6)
 public class CrudRead implements CommandLineRunner {
     @Autowired
     CouponRepository couponRepository;

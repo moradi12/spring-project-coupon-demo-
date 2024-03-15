@@ -5,6 +5,7 @@ import Openconnection.example.demo.beans.Category;
 import Openconnection.example.demo.beans.Coupon;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -12,6 +13,7 @@ import java.sql.Date;
 import java.util.Arrays;
 
 @Component
+@Order(1)
 public class CouponTester implements CommandLineRunner {
 
     @Autowired

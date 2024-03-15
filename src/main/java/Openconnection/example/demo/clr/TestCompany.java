@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Arrays;
 
 @Component
-@Order(1) // Set order value
+@Order(3) // Set order value
 public class TestCompany implements CommandLineRunner {
 
     @Autowired
