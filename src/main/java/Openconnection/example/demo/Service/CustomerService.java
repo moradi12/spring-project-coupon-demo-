@@ -1,7 +1,7 @@
-package Openconnection.example.demo.database.ServiceInterface;
+package Openconnection.example.demo.Service;
 
 import Openconnection.example.demo.Exceptions.CustomerException;
-import Openconnection.example.demo.database.beans.Customer;
+import Openconnection.example.demo.beans.Customer;
 
 import java.util.Optional;
 
@@ -10,7 +10,6 @@ public interface CustomerService {
 
     void addCustomer(Customer customer) throws CustomerException;
 
-    void saveCustomer(Customer customer) throws CustomerException;
 
     void updateCustomer(Customer customer) throws CustomerException;
 

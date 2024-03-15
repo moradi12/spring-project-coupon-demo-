@@ -1,13 +1,14 @@
-package Openconnection.example.demo.database.ServiceInterface;
+package Openconnection.example.demo.ServiceImpl;
 
 import Openconnection.example.demo.Exceptions.CompanyNotFoundException;
 import Openconnection.example.demo.Exceptions.CouponNotFoundException;
 import Openconnection.example.demo.Exceptions.ErrMsg;
-import Openconnection.example.demo.database.Repository.CompanyRepository;
-import Openconnection.example.demo.database.Repository.CouponRepository;
-import Openconnection.example.demo.database.beans.Category;
-import Openconnection.example.demo.database.beans.Company;
-import Openconnection.example.demo.database.beans.Coupon;
+import Openconnection.example.demo.Repository.CompanyRepository;
+import Openconnection.example.demo.Repository.CouponRepository;
+import Openconnection.example.demo.Service.CompanyService;
+import Openconnection.example.demo.beans.Category;
+import Openconnection.example.demo.beans.Company;
+import Openconnection.example.demo.beans.Coupon;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,8 +33,6 @@ public class CompanyServiceImpl implements CompanyService {
         }
         return true;
     }
-///todo : DO i even need it ?!!?!?!!
-
 
     @Override
     public void addCoupon(Coupon coupon) throws CouponNotFoundException {
@@ -42,13 +41,16 @@ public class CompanyServiceImpl implements CompanyService {
             throw new CouponNotFoundException(ErrMsg.COMPANY_NOT_FOUND.getMsg());
         }
         couponRepository.save(coupon);
+        System.out.println("Coupon added: " + coupon);
     }
+
     @Override
     public void updateCoupon(Coupon coupon) throws CouponNotFoundException {
         if (!couponRepository.existsById(coupon.getId())) {
             throw new CouponNotFoundException(ErrMsg.COUPON_ID_NOT_FOUND.getMsg());
         }
         couponRepository.saveAndFlush(coupon);
+        System.out.println("Coupon updated: " + coupon);
     }
 
     @Override
@@ -57,8 +59,8 @@ public class CompanyServiceImpl implements CompanyService {
             throw new CouponNotFoundException(ErrMsg.COUPON_ID_NOT_FOUND.getMsg());
         }
         couponRepository.deleteById(couponID);
+        System.out.println("Coupon deleted with ID: " + couponID);
     }
-
 
     @Override
     public void addCompany(Company company) throws CompanyNotFoundException {
@@ -66,6 +68,7 @@ public class CompanyServiceImpl implements CompanyService {
             throw new CompanyNotFoundException(ErrMsg.COMPANY_ALREADY_EXISTS.getMsg());
         }
         companyRepository.save(company);
+        System.out.println("Company added: " + company);
     }
 
     @Override
@@ -74,7 +77,7 @@ public class CompanyServiceImpl implements CompanyService {
             throw new CompanyNotFoundException(ErrMsg.COMPANY_NOT_FOUND.getMsg());
         }
         companyRepository.saveAndFlush(company);
-
+        System.out.println("Company updated: " + company);
     }
 
     @Override
@@ -83,7 +86,7 @@ public class CompanyServiceImpl implements CompanyService {
             throw new CompanyNotFoundException(ErrMsg.COMPANY_NOT_FOUND.getMsg());
         }
         companyRepository.deleteById(companyID);
-
+        System.out.println("Company deleted with ID: " + companyID);
     }
 
     @Override
@@ -122,5 +125,6 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public void saveAll(List<Company> companies) throws CompanyNotFoundException {
         companyRepository.saveAll(companies);
+        System.out.println("All companies saved: " + companies.size() + " companies.");
     }
 }

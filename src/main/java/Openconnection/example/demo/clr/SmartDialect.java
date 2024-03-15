@@ -1,7 +1,7 @@
 package Openconnection.example.demo.clr;
 
-import Openconnection.example.demo.database.Repository.CouponRepository;
-import Openconnection.example.demo.database.beans.Coupon;
+import Openconnection.example.demo.Repository.CouponRepository;
+import Openconnection.example.demo.beans.Coupon;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
@@ -21,13 +21,17 @@ public class SmartDialect implements CommandLineRunner {
     }
     @Override
     public void run(String... args) throws Exception {
-        // Find coupons by company ID
-        List<Coupon> couponsByCompanyId = couponRepository.findByCompanyId(1);
-        System.out.println("Coupons by Company ID:");
-        couponsByCompanyId.forEach(System.out::println);
+//
+//        List<Coupon> couponsByCompanyId = couponRepository.findByCompanyId(1);
+//        System.out.println("Coupons by Company ID:");
+//        couponsByCompanyId.forEach(System.out::println);
+//
+//        Date endDate = Date.valueOf("2024-03-10");
+//        couponRepository.deleteByEndDateBefore(endDate);
+//        System.out.println("Coupons with end date before " + endDate + " deleted successfully.");
+//
+//
 
-        Date endDate = Date.valueOf("2024-03-10");
-        couponRepository.deleteByEndDateBefore(endDate);
-        System.out.println("Coupons with end date before " + endDate + " deleted successfully.");
+
     }
 }

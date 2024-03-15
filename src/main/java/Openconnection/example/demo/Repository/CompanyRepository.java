@@ -1,6 +1,6 @@
-package Openconnection.example.demo.database.Repository;
+package Openconnection.example.demo.Repository;
 
-import Openconnection.example.demo.database.beans.Company;
+import Openconnection.example.demo.beans.Company;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

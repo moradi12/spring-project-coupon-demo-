@@ -1,4 +1,4 @@
-package Openconnection.example.demo.database.beans;
+package Openconnection.example.demo.beans;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

@@ -1,11 +1,12 @@
 package Openconnection.example.demo.Controllers;
 
 import Openconnection.example.demo.Exceptions.CouponNotFoundException;
-import Openconnection.example.demo.database.ServiceInterface.CouponService;
-import Openconnection.example.demo.database.beans.Coupon;
+import Openconnection.example.demo.Service.CouponService;
+import Openconnection.example.demo.beans.Coupon;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,64 +16,48 @@ import java.util.Optional;
 /// its only for the website !!!
 @RestController
 @RequestMapping("/api/coupon")
+@RequiredArgsConstructor
 public class CouponController {
 
     @Autowired
     CouponService couponService;
 
-
-    // getting data
-
-    //getting all the coupons!!!
-
-    //GetMapping//
-
-    @GetMapping
+    // Get all coupons
+    @GetMapping("/getAllCoupons")
     @ResponseStatus(HttpStatus.OK)
     public List<Coupon> getAllCoupons() throws CouponNotFoundException {
         return couponService.getAllCoupons();
     }
 
-
-    //create data
-    //PostMapping
-
-    //validated make sure thats its working
-    @PostMapping
+    // Create a new coupon
+    @PostMapping("/addCoupon")
     @ResponseStatus(HttpStatus.CREATED)
     public void addCoupon(@Validated @RequestBody Coupon coupon) throws CouponNotFoundException {
         couponService.addCoupon(coupon);
     }
 
-
-    //put = update
-    //PutMapping
-    ///select the id to update the coupon
-
-
-
-    @PutMapping("/{id}")
+    // Update a coupon by its ID
+    @PutMapping("/updateCoupon/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateCoupon(@PathVariable int id, @RequestBody Coupon coupon) throws CouponNotFoundException {
-        couponService.updateCoupon(id, coupon);
-
+    public void updateCoupon(@PathVariable int id, @Valid @RequestBody Coupon coupon) throws CouponNotFoundException {
+        Coupon existingCoupon = couponService.getOneCoupon(id)
+                .orElseThrow(() -> new CouponNotFoundException("Coupon with id " + id + " not found"));
+        coupon.setId(id); // Ensure the ID is set correctly
+        couponService.updateCoupon(existingCoupon);
     }
 
-    ///delete cat
-//DeleteMapping
-    @DeleteMapping("/{id}")
+
+    // Delete a coupon by its ID
+    @DeleteMapping("/deleteCoupon/{id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void deleteCoupon(@PathVariable int id) throws CouponNotFoundException {
         couponService.deleteCoupon(id);
     }
 
-    @GetMapping("/{id}")
+    // Get a coupon by its ID
+    @GetMapping("/getOneCoupon/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Optional<Coupon> getOneCoupon(@PathVariable int id) throws CouponNotFoundException {
         return couponService.getOneCoupon(id);
-
-
     }
-
 }
-/// if we have more than 1 get mapping we have to change the path

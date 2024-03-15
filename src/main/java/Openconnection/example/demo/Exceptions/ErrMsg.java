@@ -18,8 +18,7 @@ public enum ErrMsg {
     CUSTOMER_NOT_FOUND("Customer not found"),
     AUTHENTICATION_FAILED("Authentication failed. Incorrect username or password"),
     UNAUTHORIZED_ACCESS("Unauthorized access. You do not have permission to perform this action"),
-
-    // Admin
+    CUSTOMER_ERROR("Error occurred while handling customer operation"),
     ADMIN_NOT_FOUND("Error: Admin not found. Please check the provided details and try again"),
 
     // Login

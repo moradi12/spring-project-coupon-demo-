@@ -1,6 +1,6 @@
 package Openconnection.example.demo.clr;
 
-import Openconnection.example.demo.database.beans.Coupon;
+import Openconnection.example.demo.beans.Coupon;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
@@ -24,8 +24,11 @@ public class RestTest implements CommandLineRunner {
             String url = "http://localhost:8080/api/coupons";
             Coupon response = restTemplate.getForObject(url, Coupon.class);
             System.out.println(response);
+
         } catch (Exception err) {
             System.out.println(err.getMessage());
+
         }
     }
+
 }

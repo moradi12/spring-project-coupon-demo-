@@ -1,7 +1,7 @@
-package Openconnection.example.demo.database.ServiceInterface;
+package Openconnection.example.demo.Service;
 
-import Openconnection.example.demo.database.beans.Company;
-import Openconnection.example.demo.database.beans.Customer;
+import Openconnection.example.demo.beans.Company;
+import Openconnection.example.demo.beans.Customer;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package Openconnection.example.demo.database.beans;
+package Openconnection.example.demo.beans;
 
 public enum Category {
     Food,

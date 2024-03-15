@@ -1,22 +1,22 @@
-package Openconnection.example.demo.database.ServiceInterface;
+package Openconnection.example.demo.ServiceImpl;
 
+import Openconnection.example.demo.Exceptions.CompanyNotFoundException;
+import Openconnection.example.demo.Exceptions.CouponNotFoundException;
 import Openconnection.example.demo.Exceptions.CustomerException;
 import Openconnection.example.demo.Exceptions.ErrMsg;
-import Openconnection.example.demo.database.Repository.CustomerRepository;
-import Openconnection.example.demo.database.beans.Customer;
+import Openconnection.example.demo.Repository.CustomerRepository;
+import Openconnection.example.demo.Service.CustomerService;
+import Openconnection.example.demo.beans.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     CustomerRepository customerRepository;
-
-    ///  boolean customerExists = customerRepository.existsByEmailAndPassword(email, password);
-//        if (!customerExists) {
-//            throw new CustomerException(ErrMsg.CUSTOMER_NOT_FOUND);
-//        }////
     @Override
     public boolean isCustomerExists(String email, String password) throws CustomerException {
         boolean customerExists = customerRepository.existsByEmailAndPassword(email, password);
@@ -32,16 +32,9 @@ public class CustomerServiceImpl implements CustomerService {
             throw new CustomerException(ErrMsg.CUSTOMER_ALREADY_EXISTS);
         }
         customerRepository.save(customer);
+        System.out.println("Customer added " + customer);
     }
 
-    @Override
-    public void saveCustomer(Customer customer) throws CustomerException {
-        if (!customerRepository.existsById(customer.getId())) {
-            throw new CustomerException(ErrMsg.CUSTOMER_NOT_FOUND);
-
-        }
-        customerRepository.save(customer);
-    }
 
     @Override
     public void updateCustomer(Customer customer) throws CustomerException {
@@ -50,6 +43,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         }
         customerRepository.saveAndFlush(customer);
+        System.out.println("Customer updated" + customer);
     }
 
     @Override
@@ -58,6 +52,7 @@ public class CustomerServiceImpl implements CustomerService {
             throw new CustomerException(ErrMsg.CUSTOMER_NOT_FOUND);
         }
         customerRepository.deleteById(customerID);
+        System.out.println("Customer deleted " +customerID);
 
     }
 

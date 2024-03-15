@@ -1,8 +1,7 @@
-package Openconnection.example.demo.database.ServiceInterface;
+package Openconnection.example.demo.Service;
 
 import Openconnection.example.demo.Exceptions.CouponNotFoundException;
-import Openconnection.example.demo.database.beans.Coupon;
-import Openconnection.example.demo.Exceptions.CompanyNotFoundException;
+import Openconnection.example.demo.beans.Coupon;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,8 +9,8 @@ import java.util.Optional;
 public interface CouponService {
 
     void addCoupon(Coupon coupon) throws CouponNotFoundException;
-
-    void updateCoupon(int id, Coupon coupon) throws CouponNotFoundException;
+    Coupon getCouponById(int id) throws CouponNotFoundException;
+    void updateCoupon(Coupon coupon) throws CouponNotFoundException;
 
     void deleteCoupon(int couponID) throws CouponNotFoundException;
 
@@ -19,6 +18,11 @@ public interface CouponService {
 
     Optional<Coupon> getOneCoupon(int couponID) throws CouponNotFoundException;
 
+
+
     boolean couponExistsByTitleAndCompany(String title, int companyId);
-    boolean couponExistsByTitle(String title);
+
+    void deleteCouponPurchase(int couponID,int customerID)throws CouponNotFoundException;
+
+    void addCouponPurchase(int couponID,int customerID)throws CouponNotFoundException;
 }

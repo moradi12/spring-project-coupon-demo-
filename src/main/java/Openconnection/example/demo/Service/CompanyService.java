@@ -1,11 +1,11 @@
-package Openconnection.example.demo.database.ServiceInterface;
+package Openconnection.example.demo.Service;
 
 
 import Openconnection.example.demo.Exceptions.CompanyNotFoundException;
 import Openconnection.example.demo.Exceptions.CouponNotFoundException;
-import Openconnection.example.demo.database.beans.Category;
-import Openconnection.example.demo.database.beans.Company;
-import Openconnection.example.demo.database.beans.Coupon;
+import Openconnection.example.demo.beans.Category;
+import Openconnection.example.demo.beans.Company;
+import Openconnection.example.demo.beans.Coupon;
 
 import java.util.List;
 import java.util.Optional;
