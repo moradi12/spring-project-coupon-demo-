@@ -7,7 +7,7 @@ import Openconnection.example.demo.beans.Customer;
 import java.util.List;
 import java.util.Optional;
 
-public interface AdminService {
+public interface AdminService extends ClientType {
 
    // boolean login(String email,String password);
     void addCompany(Company company)throws AdminException;

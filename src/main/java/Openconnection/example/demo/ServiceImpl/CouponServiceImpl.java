@@ -25,17 +25,15 @@ public class CouponServiceImpl implements CouponService {
     public void addCoupon(Coupon coupon) throws CouponNotFoundException {
         int id = coupon.getId();
         if (couponRepository.existsById(id)) {
-            throw new CouponNotFoundException(ErrMsg.COMPANY_ALREADY_EXISTS.getMsg());
+            throw new CouponNotFoundException(ErrMsg.COUPON_ID_ALREADY_EXISTS.getMsg());
         }
         couponRepository.save(coupon);
         System.out.println("Coupon added: " + coupon);
     }
-
     @Override
     public Coupon getCouponById(int id) throws CouponNotFoundException {
         Optional<Coupon> couponOptional = couponRepository.findById(id);
-        return couponOptional.orElseThrow(() -> new CouponNotFoundException(ErrMsg.COUPON_ID_NOT_FOUND.getMsg()));
-        }
+        return couponOptional.orElseThrow(() -> new CouponNotFoundException(ErrMsg.COUPON_ID_NOT_FOUND.getMsg()));        }
 
 
     @Override
@@ -45,7 +43,7 @@ public class CouponServiceImpl implements CouponService {
         }
         couponRepository.saveAndFlush(coupon);
         System.out.println("Coupon updated: " + coupon);
-        }
+    }
 
     @Override
     public void deleteCoupon(int couponID) throws CouponNotFoundException {
@@ -55,7 +53,6 @@ public class CouponServiceImpl implements CouponService {
         couponRepository.deleteById(couponID);
         System.out.println("Coupon deleted with ID: " + couponID);
     }
-
 
     @Override
     public List<Coupon> getAllCoupons() throws CouponNotFoundException {
@@ -75,7 +72,6 @@ public class CouponServiceImpl implements CouponService {
 
     @Override
     public boolean couponExistsByTitleAndCompany(String title, int companyId) {
-        // Check if a coupon exists with the given title and company ID
         boolean exists = couponRepository.existsByTitleAndCompanyId(title, companyId);
         System.out.println("Coupon exists with title: " + title + " and company ID: " + companyId + ": " + exists);
         return exists;
@@ -90,8 +86,6 @@ public class CouponServiceImpl implements CouponService {
             throw new CouponNotFoundException(ErrMsg.CUSTOMER_NOT_FOUND.getMsg());
         }
         Customer customer = optionalCustomer.get();
-
-        // Removing coupon from customer's list of purchased coupons
         List<Coupon> customerCoupons = customer.getCoupons();
         customerCoupons.removeIf(c -> c.getId() == couponID);
         customer.setCoupons(customerCoupons);
@@ -104,15 +98,11 @@ public class CouponServiceImpl implements CouponService {
     public void addCouponPurchase(int couponID, int customerID) throws CouponNotFoundException {
         Coupon coupon = couponRepository.findById(couponID)
                 .orElseThrow(() -> new CouponNotFoundException(ErrMsg.COUPON_NOT_FOUND.getMsg()));
-
-        // Retrieve the customer by their ID
         Optional<Customer> optionalCustomer = customerRepository.findById(customerID);
         if (optionalCustomer.isEmpty()) {
             throw new CouponNotFoundException(ErrMsg.CUSTOMER_NOT_FOUND.getMsg());
         }
         Customer customer = optionalCustomer.get();
-
-        // Adding coupon to customer's list of purchased coupons
         List<Coupon> customerCoupons = customer.getCoupons();
         customerCoupons.add(coupon);
         customer.setCoupons(customerCoupons);

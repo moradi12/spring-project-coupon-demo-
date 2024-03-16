@@ -9,7 +9,9 @@ import java.util.Optional;
 public interface CouponService {
 
     void addCoupon(Coupon coupon) throws CouponNotFoundException;
+
     Coupon getCouponById(int id) throws CouponNotFoundException;
+
     void updateCoupon(Coupon coupon) throws CouponNotFoundException;
 
     void deleteCoupon(int couponID) throws CouponNotFoundException;
@@ -18,11 +20,9 @@ public interface CouponService {
 
     Optional<Coupon> getOneCoupon(int couponID) throws CouponNotFoundException;
 
-
-
     boolean couponExistsByTitleAndCompany(String title, int companyId);
 
-    void deleteCouponPurchase(int couponID,int customerID)throws CouponNotFoundException;
+    void deleteCouponPurchase(int couponID, int customerID) throws CouponNotFoundException;
 
-    void addCouponPurchase(int couponID,int customerID)throws CouponNotFoundException;
+    void addCouponPurchase(int couponID, int customerID) throws CouponNotFoundException;
 }

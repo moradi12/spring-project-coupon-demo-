@@ -1,5 +1,6 @@
 package Openconnection.example.demo.ServiceImpl;
 
+import Openconnection.example.demo.Exceptions.CompanyAlreadyExistsException;
 import Openconnection.example.demo.Exceptions.CompanyNotFoundException;
 import Openconnection.example.demo.Exceptions.CouponNotFoundException;
 import Openconnection.example.demo.Exceptions.ErrMsg;
@@ -9,7 +10,6 @@ import Openconnection.example.demo.Service.CompanyService;
 import Openconnection.example.demo.beans.Category;
 import Openconnection.example.demo.beans.Company;
 import Openconnection.example.demo.beans.Coupon;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,28 +17,17 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-@RequiredArgsConstructor
 public class CompanyServiceImpl implements CompanyService {
     @Autowired
     CompanyRepository companyRepository;
     @Autowired
     CouponRepository couponRepository;
 
-    private int companyID;
-
-    @Override
-    public boolean isCompanyExists(String email, String password) throws CompanyNotFoundException {
-        if (!companyRepository.existsByEmailAndPassword(email, password)) {
-            throw new CompanyNotFoundException(ErrMsg.COMPANY_NOT_FOUND.getMsg());
-        }
-        return true;
-    }
-
     @Override
     public void addCoupon(Coupon coupon) throws CouponNotFoundException {
-        Optional<Company> companyOptional = companyRepository.findById(coupon.getCompanyId());
-        if (companyOptional.isEmpty()) {
-            throw new CouponNotFoundException(ErrMsg.COMPANY_NOT_FOUND.getMsg());
+        int id = coupon.getId();
+        if (couponRepository.existsById(id)) {
+            throw new CouponNotFoundException(ErrMsg.COUPON_ID_ALREADY_EXISTS.getMsg());
         }
         couponRepository.save(coupon);
         System.out.println("Coupon added: " + coupon);
@@ -63,12 +52,40 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public void addCompany(Company company) throws CompanyNotFoundException {
+    public List<Coupon> companyCoupons() throws CompanyNotFoundException {
+        throw new CompanyNotFoundException(ErrMsg.COMPANY_NOT_FOUND.getMsg());
+    }
+
+    @Override
+    public List<Coupon> companyCoupons(Category category) throws CompanyNotFoundException {
+        throw new CompanyNotFoundException(ErrMsg.COMPANY_NOT_FOUND.getMsg());
+    }
+
+    @Override
+    public List<Coupon> companyCoupons(double MaxPrice) throws CompanyNotFoundException {
+        throw new CompanyNotFoundException(ErrMsg.COMPANY_NOT_FOUND.getMsg());
+    }
+
+    @Override
+    public void getCompanyDetails(Company company) {
+        // Implementation to get and print company details
+        System.out.println("Company Details: " + company);
+    }
+
+    @Override
+    public boolean isCompanyExists(String email, String password) throws CompanyNotFoundException {
+        if (!companyRepository.existsByEmailAndPassword(email, password)) {
+            throw new CompanyNotFoundException(ErrMsg.COMPANY_NOT_FOUND.getMsg());
+        }
+        return true;
+    }
+
+    @Override
+    public void addCompany(Company company) throws CompanyAlreadyExistsException {
         if (companyRepository.existsById(company.getId())) {
-            throw new CompanyNotFoundException(ErrMsg.COMPANY_ALREADY_EXISTS.getMsg());
+            throw new CompanyAlreadyExistsException(ErrMsg.COMPANY_ALREADY_EXISTS.getMsg());
         }
         companyRepository.save(company);
-        System.out.println("Company added: " + company);
     }
 
     @Override
@@ -104,26 +121,7 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public List<Coupon> companyCoupons() throws CompanyNotFoundException {
-        throw new CompanyNotFoundException(ErrMsg.COMPANY_NOT_FOUND.getMsg());
-    }
-
-    @Override
-    public List<Coupon> companyCoupons(Category category) throws CompanyNotFoundException {
-        throw new CompanyNotFoundException(ErrMsg.COMPANY_NOT_FOUND.getMsg());
-    }
-
-    @Override
-    public List<Coupon> companyCoupons(double maxPrice) throws CompanyNotFoundException {
-        throw new CompanyNotFoundException(ErrMsg.COMPANY_NOT_FOUND.getMsg());
-    }
-
-    @Override
-    public void getCompanyDetails(Company company) {
-    }
-
-    @Override
-    public void saveAll(List<Company> companies) throws CompanyNotFoundException {
+    public void saveAll(List<Company> companies) {
         companyRepository.saveAll(companies);
         System.out.println("All companies saved: " + companies.size() + " companies.");
     }
