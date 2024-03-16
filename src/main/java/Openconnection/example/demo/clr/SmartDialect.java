@@ -21,17 +21,6 @@ public class SmartDialect implements CommandLineRunner {
     }
     @Override
     public void run(String... args) throws Exception {
-//
-//        List<Coupon> couponsByCompanyId = couponRepository.findByCompanyId(1);
-//        System.out.println("Coupons by Company ID:");
-//        couponsByCompanyId.forEach(System.out::println);
-//
-//        Date endDate = Date.valueOf("2024-03-10");
-//        couponRepository.deleteByEndDateBefore(endDate);
-//        System.out.println("Coupons with end date before " + endDate + " deleted successfully.");
-//
-//
-
 
     }
 }

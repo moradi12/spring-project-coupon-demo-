@@ -1,7 +1,5 @@
 package Openconnection.example.demo.ServiceImpl;
 
-import Openconnection.example.demo.Exceptions.CompanyNotFoundException;
-import Openconnection.example.demo.Exceptions.CouponNotFoundException;
 import Openconnection.example.demo.Exceptions.CustomerException;
 import Openconnection.example.demo.Exceptions.ErrMsg;
 import Openconnection.example.demo.Repository.CustomerRepository;
@@ -16,40 +14,47 @@ import java.util.Optional;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
+    private final CustomerRepository customerRepository;
+
     @Autowired
-    CustomerRepository customerRepository;
+    public CustomerServiceImpl(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
+    }
+
     @Override
     public boolean isCustomerExists(String email, String password) throws CustomerException {
-        boolean customerExists = customerRepository.existsByEmailAndPassword(email, password);
-        if (!customerExists) {
-            throw new CustomerException(ErrMsg.CUSTOMER_NOT_FOUND);
+        if (!customerRepository.existsByEmailAndPassword(email, password)) {
+            throw new CustomerException(ErrMsg.AUTHENTICATION_FAILED);
         }
         return true;
     }
 
     @Override
     public void addCustomer(Customer customer) throws CustomerException {
-        if (customerRepository.existsByEmail(customer.getEmail())) {
+        if (customerRepository.existsById(customer.getId()) || customerRepository.existsByEmail(customer.getEmail())) {
             throw new CustomerException(ErrMsg.CUSTOMER_ALREADY_EXISTS);
         }
         customerRepository.save(customer);
-        System.out.println("Customer added " + customer);
     }
 
     @Override
-    public List<Customer> getAllCustomers() throws CustomerException {
+    public List<Customer> getAllCustomers() {
         return customerRepository.findAll();
     }
 
-
     @Override
     public void updateCustomer(Customer customer) throws CustomerException {
-        if (!customerRepository.existsById(customer.getId())) {
+        int id = customer.getId();
+        if (!customerRepository.existsById(id)) {
             throw new CustomerException(ErrMsg.CUSTOMER_NOT_FOUND);
-
+        }
+        Optional<Customer> existingCustomerByEmail = customerRepository.findByEmail(customer.getEmail());
+        if (existingCustomerByEmail.isPresent() && existingCustomerByEmail.get().getId() != id) {
+            throw new CustomerException(ErrMsg.CUSTOMER_ALREADY_EXISTS);
         }
         customerRepository.saveAndFlush(customer);
-        System.out.println("Customer updated" + customer);
+
+        System.out.println("Customer updated" +customer);
     }
 
     @Override
@@ -58,8 +63,7 @@ public class CustomerServiceImpl implements CustomerService {
             throw new CustomerException(ErrMsg.CUSTOMER_NOT_FOUND);
         }
         customerRepository.deleteById(customerID);
-        System.out.println("Customer deleted " +customerID);
-
+        System.out.println("Customer deleted " + customerID);
     }
 
     @Override
@@ -73,10 +77,10 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Optional<Customer> findById(int id) throws CustomerException {
-        Optional<Customer> customers = customerRepository.findById(id);
-        if (customers.isEmpty()) {
+        Optional<Customer> customer = customerRepository.findById(id);
+        if (customer.isEmpty()) {
             throw new CustomerException(ErrMsg.CUSTOMER_NOT_FOUND);
         }
-        return customers;
+        return customer;
     }
 }

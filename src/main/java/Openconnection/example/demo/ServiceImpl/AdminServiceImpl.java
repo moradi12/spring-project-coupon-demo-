@@ -22,12 +22,12 @@ public class AdminServiceImpl implements AdminService {
     private CustomerRepository customerRepository;
 
     @Override
-    public void addCompany(Company company) {
+    public void addCompany(Company company) throws AdminException {
         companyRepository.save(company);
     }
 
     @Override
-    public void updateCompany(Company company) {
+    public void updateCompany(Company company) throws AdminException {
         if (!companyRepository.existsById(company.getId())) {
             throw new AdminException("Company not found");
         }
@@ -35,7 +35,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void deleteCompany(int companyId) {
+    public void deleteCompany(int companyId) throws AdminException {
         if (!companyRepository.existsById(companyId)) {
             throw new AdminException("Company not found");
         }
@@ -43,31 +43,38 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<Company> getAllCompanies() {
+    public List<Company> getAllCompanies() throws AdminException {
         return companyRepository.findAll();
     }
 
     @Override
-    public Company getOneCompany(int companyId) {
+    public Company getOneCompany(int companyId) throws AdminException {
         Optional<Company> optionalCompany = companyRepository.findById(companyId);
-        return optionalCompany.orElse(null);
+        return optionalCompany.orElseThrow(() -> new AdminException("Company not found"));
     }
 
-    @Override
-    public void addCustomer(Customer customer) {
-        customerRepository.save(customer);
-    }
-
-    @Override
-    public void updateCustomer(Customer customer) {
-        if (!customerRepository.existsById(customer.getId())) {
-            throw new AdminException("Customer not found");
+    public void addCustomer(Customer customer) throws AdminException {
+        int id = customer.getId();
+        if (customerRepository.existsById(id)) {
+            throw new AdminException("Customer with the same ID already exists");
+        }
+        if (customerRepository.existsByEmail(customer.getEmail())) {
+            throw new AdminException("Customer with the same email already exists");
         }
         customerRepository.save(customer);
     }
-
+    public void updateCustomer(Customer customer) throws AdminException {
+        int id = customer.getId();
+        if (!customerRepository.existsById(id)) {
+            throw new AdminException("Customer not found");
+        }
+        if (customerRepository.existsByEmail(customer.getEmail()) && !customerRepository.findById(id).get().getEmail().equals(customer.getEmail())) {
+            throw new AdminException("Customer with the same email already exists");
+        }
+        customerRepository.saveAndFlush(customer);
+    }
     @Override
-    public void deleteCustomer(int customerId) {
+    public void deleteCustomer(int customerId) throws AdminException {
         if (!customerRepository.existsById(customerId)) {
             throw new AdminException("Customer not found");
         }
@@ -75,12 +82,12 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<Customer> getAllCustomers() {
+    public List<Customer> getAllCustomers() throws AdminException {
         return customerRepository.findAll();
     }
 
     @Override
-    public Optional<Customer> getOneCustomer(int customerId) {
+    public Optional<Customer> getOneCustomer(int customerId) throws AdminException {
         return customerRepository.findById(customerId);
     }
 }

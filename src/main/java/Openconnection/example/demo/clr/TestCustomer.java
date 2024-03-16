@@ -34,7 +34,6 @@ public class TestCustomer implements CommandLineRunner {
         try {
             System.out.println("Adding predefined customers...");
 
-            // Creating and saving the first customer
             System.out.println("Adding customer 1...");
             Customer customer1 = Customer.builder()
                     .id(1)
@@ -45,7 +44,6 @@ public class TestCustomer implements CommandLineRunner {
                     .build();
             customerService.addCustomer(customer1);
 
-            // Creating and saving the second customer
             System.out.println("Adding customer 2...");
             Customer customer2 = Customer.builder()
                     .id(2)
@@ -56,7 +54,6 @@ public class TestCustomer implements CommandLineRunner {
                     .build();
             customerService.addCustomer(customer2);
 
-            // Creating and saving the third customer
             System.out.println("Adding customer 3...");
             Customer customer3 = Customer.builder()
                     .id(3)
@@ -66,6 +63,19 @@ public class TestCustomer implements CommandLineRunner {
                     .password("password789")
                     .build();
             customerService.addCustomer(customer3);
+
+
+
+            System.out.println("Adding customer 4...");
+            Customer customer4 = Customer.builder()
+                    .id(4)
+                    .firstName("Ofir")
+                    .lastName("Cool")
+                    .email("ofir@example.com")
+                    .password("ofirPassword")
+                    .build();
+            customerService.addCustomer(customer4);
+
 
             // Printing all customers
             System.out.println("All Customers after adding:");
@@ -82,6 +92,8 @@ public class TestCustomer implements CommandLineRunner {
             restTemplate.postForEntity("http://localhost:8080/api/customers", customer1, Customer.class);
             restTemplate.postForEntity("http://localhost:8080/api/customers", customer2, Customer.class);
             restTemplate.postForEntity("http://localhost:8080/api/customers", customer3, Customer.class);
+            restTemplate.postForEntity("http://localhost:8080/api/customers", customer4, Customer.class);
+
 
             // Getting all customers from API
             System.out.println("Getting all customers from API...");

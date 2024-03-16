@@ -79,14 +79,11 @@ public class CouponTester implements CommandLineRunner {
                     .build();
 
 
-
-
             couponService.addCoupon(coupon1);
             couponService.addCoupon(coupon2);
             couponService.addCoupon(coupon3);
             couponService.addCoupon(coupon5);
 
-            // Displaying all coupons from the database
             System.out.println("All Coupons:");
             couponService.getAllCoupons().forEach(System.out::println);
 
@@ -96,6 +93,16 @@ public class CouponTester implements CommandLineRunner {
 
             System.out.println("Remaining Coupons:");
             couponService.getAllCoupons().forEach(System.out::println);
+
+            // Update a coupon using REST API
+            Coupon updatedCoupon = couponService.getCouponById(1); // Change the id
+            if (updatedCoupon != null) {
+                updatedCoupon.setTitle("Updated Title");
+                updatedCoupon.setDescription("Updated Description");
+
+                restTemplate.put("http://localhost:8080/api/coupons/{id}", updatedCoupon, 1);
+                System.out.println("Updated coupon with ID 1");
+            }
 
             // Sending coupons to REST API endpoints
             restTemplate.postForEntity("http://localhost:8080/api/coupons", coupon1, Coupon.class);
@@ -109,9 +116,6 @@ public class CouponTester implements CommandLineRunner {
             restTemplate.delete("http://localhost:8080/api/coupons/{id}", 1);
             System.out.println("Deleting coupon with ID 2");
 
-            // Update a coupon using REST API
-
-
             Coupon[] coupons = restTemplate.getForObject("http://localhost:8080/api/coupons/all", Coupon[].class);
             if (coupons != null) {
                 Arrays.stream(coupons).forEach(System.out::println);
@@ -120,14 +124,6 @@ public class CouponTester implements CommandLineRunner {
             Coupon[] couponsByName = restTemplate.getForObject("http://localhost:8080/api/coupons/byName/{name}", Coupon[].class, "Electronics Sale");
             if (couponsByName != null) {
                 Arrays.stream(couponsByName).forEach(System.out::println);
-            }
-            Coupon updatedCoupon = couponService.getCouponById(1); //
-            if (updatedCoupon != null) {
-                updatedCoupon.setTitle("Updated Title");
-                updatedCoupon.setDescription("Updated Description");
-
-                restTemplate.put("http://localhost:8080/api/coupons/{id}", updatedCoupon, 1);
-                System.out.println("Updated coupon with ID 1");
             }
 
         } catch (Exception e) {

@@ -21,6 +21,8 @@ public enum ErrMsg {
     CUSTOMER_ERROR("Error occurred while handling customer operation"),
     ADMIN_NOT_FOUND("Error: Admin not found. Please check the provided details and try again"),
 
+
+
     // Login
     LOGIN_FAILED("Login failed. Invalid username or password"),
 

@@ -29,9 +29,9 @@ public class Company {
     @Column(nullable = false, length = 40)
     private String password;
 
-
-    @OneToMany(cascade = CascadeType.ALL)
     @Singular
+    @OneToMany(cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private List<Coupon> coupons;
 
 }
