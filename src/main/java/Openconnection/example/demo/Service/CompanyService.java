@@ -10,16 +10,16 @@ import Openconnection.example.demo.beans.Coupon;
 import java.util.List;
 import java.util.Optional;
 
-public interface CompanyService {
+public interface CompanyService extends ClientService {
 
     void addCoupon(Coupon coupon)throws CouponNotFoundException;
     void updateCoupon(Coupon coupon)throws CouponNotFoundException;
 
     void deleteCoupon(int couponID)throws CouponNotFoundException;
 
-    List<Coupon>companyCoupons()throws CompanyNotFoundException;
-    List<Coupon>companyCoupons(Category category)throws CompanyNotFoundException;
-    List<Coupon>companyCoupons(double MaxPrice)throws CompanyNotFoundException;
+    List<Coupon> getCompanyCoupons()throws CompanyNotFoundException;
+    List<Coupon> getCompanyCoupons(Category category)throws CompanyNotFoundException;
+    List<Coupon> getCompanyCoupons(double MaxPrice)throws CompanyNotFoundException;
     void getCompanyDetails(Company company);
 
     boolean isCompanyExists(String email, String password) throws CompanyNotFoundException;

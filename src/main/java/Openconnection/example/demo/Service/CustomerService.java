@@ -6,7 +6,7 @@ import Openconnection.example.demo.beans.Customer;
 import java.util.List;
 import java.util.Optional;
 
-public interface CustomerService {
+public interface CustomerService extends ClientService {
     boolean isCustomerExists(String email, String password) throws CustomerException;
 
     void addCustomer(Customer customer) throws CustomerException;

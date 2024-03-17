@@ -1,5 +1,7 @@
 package Openconnection.example.demo.ServiceImpl;
 
+import Openconnection.example.demo.Exceptions.AdminException;
+import Openconnection.example.demo.Exceptions.CompanyNotFoundException;
 import Openconnection.example.demo.Exceptions.CustomerException;
 import Openconnection.example.demo.Exceptions.ErrMsg;
 import Openconnection.example.demo.Repository.CustomerRepository;
@@ -54,7 +56,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
         customerRepository.saveAndFlush(customer);
 
-        System.out.println("Customer updated" +customer);
+        System.out.println("Customer updated" + customer);
     }
 
     @Override
@@ -83,4 +85,15 @@ public class CustomerServiceImpl implements CustomerService {
         }
         return customer;
     }
+
+    @Override
+    public boolean Login(String email, String password) throws AdminException, CompanyNotFoundException, CustomerException {
+        Optional<Customer> customerOptional = customerRepository.findByEmailAndPassword(email, password);
+        if (customerOptional.isPresent()) {
+            return true;
+        } else {
+            throw new CustomerException(ErrMsg.AUTHENTICATION_FAILED);
+        }
+    }
 }
+

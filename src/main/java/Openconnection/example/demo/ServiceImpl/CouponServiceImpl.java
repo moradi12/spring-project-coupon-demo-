@@ -24,16 +24,18 @@ public class CouponServiceImpl implements CouponService {
     @Override
     public void addCoupon(Coupon coupon) throws CouponNotFoundException {
         int id = coupon.getId();
-        if (couponRepository.existsById(id)) {
+        if (couponRepository.existsByTitleAndCompanyId(coupon.getTitle(), coupon.getCompanyId())) {
             throw new CouponNotFoundException(ErrMsg.COUPON_ID_ALREADY_EXISTS.getMsg());
         }
         couponRepository.save(coupon);
         System.out.println("Coupon added: " + coupon);
     }
+
     @Override
     public Coupon getCouponById(int id) throws CouponNotFoundException {
         Optional<Coupon> couponOptional = couponRepository.findById(id);
-        return couponOptional.orElseThrow(() -> new CouponNotFoundException(ErrMsg.COUPON_ID_NOT_FOUND.getMsg()));        }
+        return couponOptional.orElseThrow(() -> new CouponNotFoundException(ErrMsg.COUPON_ID_NOT_FOUND.getMsg()));
+    }
 
 
     @Override
@@ -62,12 +64,9 @@ public class CouponServiceImpl implements CouponService {
     }
 
     @Override
-    public Optional<Coupon> getOneCoupon(int couponID) throws CouponNotFoundException {
-        Optional<Coupon> couponOptional = couponRepository.findById(couponID);
-        if (couponOptional.isEmpty()) {
-            throw new CouponNotFoundException(ErrMsg.COUPON_ID_NOT_FOUND.getMsg());
-        }
-        return couponOptional;
+    public Coupon getOneCoupon(int couponID) throws CouponNotFoundException {
+        return couponRepository.findById(couponID)
+                .orElseThrow(() -> new CouponNotFoundException(ErrMsg.COUPON_ID_NOT_FOUND.getMsg()));
     }
 
     @Override
@@ -76,6 +75,7 @@ public class CouponServiceImpl implements CouponService {
         System.out.println("Coupon exists with title: " + title + " and company ID: " + companyId + ": " + exists);
         return exists;
     }
+
     @Override
     public void deleteCouponPurchase(int couponID, int customerID) throws CouponNotFoundException {
         Coupon coupon = couponRepository.findById(couponID)

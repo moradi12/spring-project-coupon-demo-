@@ -1,9 +1,6 @@
 package Openconnection.example.demo.ServiceImpl;
 
-import Openconnection.example.demo.Exceptions.CompanyAlreadyExistsException;
-import Openconnection.example.demo.Exceptions.CompanyNotFoundException;
-import Openconnection.example.demo.Exceptions.CouponNotFoundException;
-import Openconnection.example.demo.Exceptions.ErrMsg;
+import Openconnection.example.demo.Exceptions.*;
 import Openconnection.example.demo.Repository.CompanyRepository;
 import Openconnection.example.demo.Repository.CouponRepository;
 import Openconnection.example.demo.Service.CompanyService;
@@ -52,17 +49,17 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public List<Coupon> companyCoupons() throws CompanyNotFoundException {
+    public List<Coupon> getCompanyCoupons() throws CompanyNotFoundException {
         throw new CompanyNotFoundException(ErrMsg.COMPANY_NOT_FOUND.getMsg());
     }
 
     @Override
-    public List<Coupon> companyCoupons(Category category) throws CompanyNotFoundException {
+    public List<Coupon> getCompanyCoupons(Category category) throws CompanyNotFoundException {
         throw new CompanyNotFoundException(ErrMsg.COMPANY_NOT_FOUND.getMsg());
     }
 
     @Override
-    public List<Coupon> companyCoupons(double MaxPrice) throws CompanyNotFoundException {
+    public List<Coupon> getCompanyCoupons(double MaxPrice) throws CompanyNotFoundException {
         throw new CompanyNotFoundException(ErrMsg.COMPANY_NOT_FOUND.getMsg());
     }
 
@@ -124,5 +121,10 @@ public class CompanyServiceImpl implements CompanyService {
     public void saveAll(List<Company> companies) {
         companyRepository.saveAll(companies);
         System.out.println("All companies saved: " + companies.size() + " companies.");
+    }
+
+    @Override
+    public boolean Login(String email, String password) throws AdminException, CompanyNotFoundException, CustomerException {
+        return false;
     }
 }

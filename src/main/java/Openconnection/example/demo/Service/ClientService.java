@@ -4,6 +4,9 @@ import Openconnection.example.demo.Exceptions.AdminException;
 import Openconnection.example.demo.Exceptions.CompanyNotFoundException;
 import Openconnection.example.demo.Exceptions.CustomerException;
 
-public interface ClientType {
+public interface ClientService {
 
-    Boolean Login(String email, String password) throws AdminException, CompanyNotFoundException, CustomerException;}
+
+    boolean Login(String email, String password) throws AdminException, CompanyNotFoundException, CustomerException;
+}
+

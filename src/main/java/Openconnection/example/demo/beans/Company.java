@@ -31,7 +31,7 @@ public class Company {
 
     @Singular
     @OneToMany(cascade = CascadeType.ALL,
-            orphanRemoval = true)
+            orphanRemoval = true,mappedBy = "companyId")
     private List<Coupon> coupons;
 
 }

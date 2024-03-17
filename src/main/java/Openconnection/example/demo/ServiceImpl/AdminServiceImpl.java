@@ -37,7 +37,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Boolean Login(String email, String password) throws AdminException {
+    public boolean Login(String email, String password) throws AdminException {
         if (adminEmail.equals(email) && adminPassword.equals(password)) {
             System.out.println("Login successful!");
             return true;
@@ -59,13 +59,9 @@ public class AdminServiceImpl implements AdminService {
         if (!companyRepository.existsById(company.getId())) {
             throw new AdminException("Company not found");
         }
-
-        // Check if another company with the same ID exists
         if (companyRepository.existsByIdNotAndId(company.getId(), company.getId())) {
             throw new CompanyAlreadyExistsException("Another company with the same ID already exists");
         }
-
-        // Save and flush changes to the database
         companyRepository.saveAndFlush(company);
     }
         @Override
