@@ -6,7 +6,6 @@ import Openconnection.example.demo.Service.CompanyService;
 import Openconnection.example.demo.beans.Company;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,51 +23,36 @@ public class CompanyController {
 
     // Endpoint to add a company
     @PostMapping
-    public ResponseEntity<Company> addCompany(@RequestBody Company company) {
-        try {
-            companyService.addCompany(company);
-            return new ResponseEntity<>(company, HttpStatus.CREATED);
-        } catch (CompanyAlreadyExistsException | CompanyNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    @ResponseStatus(HttpStatus.CREATED)
+    public Company addCompany(@RequestBody Company company) throws CompanyAlreadyExistsException, CompanyNotFoundException {
+        companyService.addCompany(company);
+        return company;
     }
 
     // Endpoint to update a company
     @PutMapping("/{id}")
-    public ResponseEntity<Company> updateCompany(@PathVariable int id, @RequestBody Company company) {
-        try {
-            companyService.updateCompany(company);
-            return new ResponseEntity<>(company, HttpStatus.OK);
-        } catch (CompanyNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    @ResponseStatus(HttpStatus.OK)
+    public Company updateCompany(@PathVariable int id, @RequestBody Company company) throws CompanyNotFoundException {
+        companyService.updateCompany(company);
+        return company;
     }
 
     // Endpoint to delete a company
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCompany(@PathVariable int id) {
-        try {
-            companyService.deleteCompany(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (CompanyNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteCompany(@PathVariable int id) throws CompanyNotFoundException {
+        companyService.deleteCompany(id);
     }
 
     // Endpoint to retrieve all companies
     @GetMapping("/all")
-    public ResponseEntity<List<Company>> getAllCompanies() {
-        List<Company> companies = companyService.getAllCompanies();
-        return new ResponseEntity<>(companies, HttpStatus.OK);
+    public List<Company> getAllCompanies() {
+        return companyService.getAllCompanies();
     }
 
     // Endpoint to retrieve a company by ID
     @GetMapping("/{id}")
-    public ResponseEntity<Company> getCompanyById(@PathVariable int id) {
-        try {
-            return ResponseEntity.of(companyService.getOneCompany(id));
-        } catch (CompanyNotFoundException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public Company getCompanyById(@PathVariable int id) throws CompanyNotFoundException {
+        return companyService.getOneCompany(id).orElseThrow();
     }
 }

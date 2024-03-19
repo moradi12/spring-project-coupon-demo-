@@ -1,7 +1,5 @@
 package Openconnection.example.demo.beans;
 
-
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
@@ -10,15 +8,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
-
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "coupons")
+@Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-
 public class Coupon {
 
     @Id
@@ -54,6 +51,4 @@ public class Coupon {
 
     private String image;
 
-
-
-}
+   }

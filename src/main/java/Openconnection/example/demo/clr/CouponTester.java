@@ -138,6 +138,7 @@ public class CouponTester implements CommandLineRunner {
             System.out.println(e.getMessage());
         }
     }
+
 }
 
 //                restTemplate.put("http://localhost:8080/api/coupons/{id}", updatedCoupon, 1);

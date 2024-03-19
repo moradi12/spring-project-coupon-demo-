@@ -33,13 +33,13 @@ public class CouponController {
 
     // Update a coupon by its ID
     @PutMapping("/updateCoupon/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     public void updateCoupon(@PathVariable("id") int id, @Valid @RequestBody Coupon coupon) throws CouponNotFoundException {
         Coupon existingCoupon = couponService.getOneCoupon(id);
         existingCoupon.setTitle(coupon.getTitle());
         existingCoupon.setDescription(coupon.getDescription());
         couponService.saveAndFlush(existingCoupon);
-    }
+        }
 
     // Delete a coupon by its ID
     @DeleteMapping("/deleteCoupon/{id}")

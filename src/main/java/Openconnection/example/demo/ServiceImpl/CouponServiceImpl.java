@@ -10,6 +10,7 @@ import Openconnection.example.demo.beans.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -115,4 +116,28 @@ public class CouponServiceImpl implements CouponService {
         customerRepository.saveAndFlush(customer);
         System.out.println("Coupon purchase added for Customer ID: " + customerID + " for Coupon ID: " + couponID);
     }
-}
+
+    @Override
+    public void deleteExpiredCoupons() throws CouponNotFoundException {
+        // Get the current date
+        Date currentDate = new Date(System.currentTimeMillis());
+
+        try {
+            // Find all expired coupons
+            List<Coupon> expiredCoupons = couponRepository.findByEndDateBefore(currentDate);
+
+            // Delete each expired coupon
+            for (Coupon coupon : expiredCoupons) {
+                couponRepository.delete(coupon);
+                System.out.println("Deleted expired coupon with ID " + coupon.getId());
+            }
+        } catch (Exception e) {
+            throw new CouponNotFoundException("Error deleting expired coupons: " + e.getMessage());
+        }
+    }
+    @Override
+    public List<Coupon> getExpiredCoupons(Date currentDate) throws CouponNotFoundException {
+        return null;
+    }
+
+    }

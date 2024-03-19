@@ -4,7 +4,6 @@ import Openconnection.example.demo.Exceptions.CouponNotFoundException;
 import Openconnection.example.demo.beans.Coupon;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CouponService {
 
@@ -23,6 +22,13 @@ public interface CouponService {
     boolean couponExistsByTitleAndCompany(String title, int companyId);
 
     void deleteCouponPurchase(int couponID, int customerID) throws CouponNotFoundException;
-    void saveAndFlush(Coupon coupon)throws CouponNotFoundException;;
+
+    void saveAndFlush(Coupon coupon) throws CouponNotFoundException;
+
     void addCouponPurchase(int couponID, int customerID) throws CouponNotFoundException;
+
+    void deleteExpiredCoupons() throws CouponNotFoundException;
+
+    List<Coupon> getExpiredCoupons(java.sql.Date currentDate) throws CouponNotFoundException;
+
 }
