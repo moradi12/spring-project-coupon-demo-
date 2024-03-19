@@ -7,14 +7,13 @@ import lombok.*;
 
 import java.util.List;
 
-@Entity()
+@Entity
 @Table(name = "customers")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Customer {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -35,13 +34,11 @@ public class Customer {
     private String email;
 
     @NotNull
-    @Size(min = 6, max = 20)
+    @Size(min = 6, max = 20, message = "Password length must be between 6 and 20 characters")
     @Column(nullable = false, length = 40)
     private String password;
-
 
     @OneToMany(cascade = CascadeType.ALL)
     @Singular
     private List<Coupon> coupons;
 }
-

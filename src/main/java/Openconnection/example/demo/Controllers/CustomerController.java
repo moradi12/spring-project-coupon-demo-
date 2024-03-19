@@ -5,8 +5,10 @@ import Openconnection.example.demo.Exceptions.CustomerException;
 import Openconnection.example.demo.Exceptions.ErrMsg;
 import Openconnection.example.demo.Service.CustomerService;
 import Openconnection.example.demo.beans.Customer;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,13 +28,14 @@ public class CustomerController {
         response.put("authenticated", isAuthenticated);
         return response;
     }
+
     @PostMapping("/register")
-    public void registerCustomer(@RequestBody Customer customer) throws CustomerException {
+    public void registerCustomer(@Valid @RequestBody Customer customer) throws CustomerException {
         customerService.addCustomer(customer);
     }
 
     @PutMapping("/update/{customerId}")
-    public void updateCustomer(@PathVariable int customerId, @RequestBody Customer customer) throws CustomerException {
+    public void updateCustomer(@PathVariable int customerId, @Valid @RequestBody Customer customer) throws CustomerException {
         customer.setId(customerId); // Set the ID of the customer object from the path
         customerService.updateCustomer(customer);
     }
