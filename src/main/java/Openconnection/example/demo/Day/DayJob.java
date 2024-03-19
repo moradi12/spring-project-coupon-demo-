@@ -18,8 +18,6 @@ public class DayJob {
     public DayJob(CouponService couponService) {
         this.couponService = couponService;
     }
-
-    // Method to delete expired coupons once a day
     @Scheduled(cron = "0 0 0 * * *") // Executes daily at midnight
     public void deleteExpiredCoupons() {
         try {

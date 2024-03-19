@@ -122,7 +122,7 @@ public class CouponTester implements CommandLineRunner {
             couponService.getAllCoupons().forEach(System.out::println);
 
             // Deleting a coupon from the database using CouponService
-           // couponService.deleteCoupon(6);
+            couponService.deleteCoupon(6);
             System.out.println("Deleting coupon with ID 6");
 
             System.out.println("Remaining Coupons:");
