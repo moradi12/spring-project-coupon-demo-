@@ -32,6 +32,12 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public boolean isCustomerExistsByEmail(String email) throws CustomerException {
+        return customerRepository.existsByEmail(email);
+    }
+
+
+    @Override
     public void addCustomer(Customer customer) throws CustomerException {
         if (customerRepository.existsById(customer.getId()) || customerRepository.existsByEmail(customer.getEmail())) {
             throw new CustomerException(ErrMsg.CUSTOMER_ALREADY_EXISTS);

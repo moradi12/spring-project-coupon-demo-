@@ -82,6 +82,34 @@ public class CouponTester implements CommandLineRunner {
                     .image("special_travel_package.jpg")
                     .build();
 
+            Coupon coupon5 = Coupon.builder()
+                    .id(5)
+                    .companyId(5)
+                    .category(Category.Clothing)
+                    .description("Buy one, get one free on all clothing items")
+                    .title("Fashion Deal")
+                    .startDate(Date.valueOf("2024-04-01"))
+                    .endDate(Date.valueOf("2024-04-30"))
+                    .amount(200)
+                    .price(0.0)
+                    .image("fashion_deal.jpg")
+                    .build();
+
+            Coupon coupon6 = Coupon.builder()
+                    .id(6)
+                    .companyId(6)
+                    .category(Category.Electronics)
+                    .description("20% off on all smartphones")
+                    .title("Electronics Sale")
+                    .startDate(Date.valueOf("2024-04-10"))
+                    .endDate(Date.valueOf("2024-04-30"))
+                    .amount(50)
+                    .price(80.0)
+                    .image("electronics_sale.jpg")
+                    .build();
+
+
+
 
             couponService.addCoupon(coupon1);
             couponService.addCoupon(coupon2);

@@ -95,6 +95,12 @@ public class CouponServiceImpl implements CouponService {
     }
 
     @Override
+    public void saveAndFlush(Coupon coupon) throws CouponNotFoundException {
+        couponRepository.saveAndFlush(coupon);
+        System.out.println("Coupon saved and flushed: " + coupon);
+    }
+
+    @Override
     public void addCouponPurchase(int couponID, int customerID) throws CouponNotFoundException {
         Coupon coupon = couponRepository.findById(couponID)
                 .orElseThrow(() -> new CouponNotFoundException(ErrMsg.COUPON_NOT_FOUND.getMsg()));

@@ -8,10 +8,11 @@ import java.util.Optional;
 
 public interface CustomerService extends ClientService {
     boolean isCustomerExists(String email, String password) throws CustomerException;
-
+    boolean isCustomerExistsByEmail(String email) throws CustomerException; // New method to check existence by email
     void addCustomer(Customer customer) throws CustomerException;
 
     List<Customer> getAllCustomers() throws CustomerException;
+
     void updateCustomer(Customer customer) throws CustomerException;
 
     void deleteCustomer(int customerID) throws CustomerException;
@@ -19,4 +20,5 @@ public interface CustomerService extends ClientService {
     Optional<Customer> getOneCustomer(int customerID) throws CustomerException;
 
     Optional<Customer> findById(int id) throws CustomerException;
+
 }

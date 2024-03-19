@@ -23,6 +23,6 @@ public interface CouponService {
     boolean couponExistsByTitleAndCompany(String title, int companyId);
 
     void deleteCouponPurchase(int couponID, int customerID) throws CouponNotFoundException;
-
+    void saveAndFlush(Coupon coupon)throws CouponNotFoundException;;
     void addCouponPurchase(int couponID, int customerID) throws CouponNotFoundException;
 }

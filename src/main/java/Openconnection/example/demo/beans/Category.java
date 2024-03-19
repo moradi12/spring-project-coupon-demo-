@@ -2,7 +2,7 @@ package Openconnection.example.demo.beans;
 
 public enum Category {
     Food,
-    Electricity,
+    Electronics,
     Restaurant,
     Vacation,
     Computer,
