@@ -36,17 +36,7 @@ public class TestCustomer implements CommandLineRunner {
                     .coupon(couponService.getOneCoupon(1))
                     .build();
             customerService.addCustomer(customer1);
-//
-//            System.out.println("Adding customer 2...");
-//            Customer customer2 = Customer.builder()
-//                    .id(2)
-//                    .firstName("Jane")
-//                    .lastName("Smith")
-//                    .email("jane@smith.com")
-//                    .password("password456")
-//                    .coupon(couponService.getOneCoupon(2))
-//                    .build();
-//            customerService.addCustomer(customer2);
+
 
             System.out.println("Adding customer 3...");
             Customer customer3 = Customer.builder()
@@ -61,7 +51,6 @@ public class TestCustomer implements CommandLineRunner {
 
             System.out.println("Adding customer 4...");
             Customer customer4 = Customer.builder()
-
                     .id(4)
                     .firstName("Ofir")
                     .lastName("Cool")
@@ -85,6 +74,18 @@ public class TestCustomer implements CommandLineRunner {
             customerService.addCustomer(customer5);
 
 
+            System.out.println("Adding customer 5...");
+            Customer customer6 = Customer.builder()
+                    .id(6)
+                    .firstName("Ben")
+                    .lastName("Mocher")
+                    .email("Ben@example.com")
+                    .password("Benew")
+                    .coupon(couponService.getOneCoupon(6))
+                    .build();
+            customerService.addCustomer(customer6);
+
+
 
             // Printing all customers
             System.out.println("All Customers after adding:");
@@ -92,7 +93,7 @@ public class TestCustomer implements CommandLineRunner {
 
             // Deleting a customer with ID 2
             System.out.println("Deleting customer with ID 2...");
-        //    customerService.deleteCustomer(2);
+            //customerService.deleteCustomer(2);
             System.out.println("Remaining Customers after deletion:");
             customerService.getAllCustomers().forEach(System.out::println);
         } catch (Exception e) {
@@ -100,45 +101,3 @@ public class TestCustomer implements CommandLineRunner {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//            System.out.println("Posting customers to API...");
-//            restTemplate.postForEntity("http://localhost:8080/api/customers", customer1, Customer.class);
-//            restTemplate.postForEntity("http://localhost:8080/api/customers", customer2, Customer.class);
-//            restTemplate.postForEntity("http://localhost:8080/api/customers", customer3, Customer.class);
-//            restTemplate.postForEntity("http://localhost:8080/api/customers", customer4, Customer.class);
-//
-//            System.out.println("Getting all customers from API...");
-//            System.out.println(restTemplate.getForObject("http://localhost:8080/api/customers/all", String.class));
-//
-//            System.out.println("Deleting customer with ID 2 from API...");
-//            restTemplate.delete("http://localhost:8080/api/customers/{id}", 2);
-//            System.out.println("Getting all customers after deletion from API...");
-//            Customer[] customers = restTemplate.getForObject("http://localhost:8080/api/customers/all", Customer[].class);
-//            if (customers != null) {
-//                Arrays.stream(customers).forEach(System.out::println);
-//            }
-//
-//            System.out.println("Getting customers by first name from API...");
-//            Customer[] customersByFirstName = restTemplate.getForObject("http://localhost:8080/api/customers/byFirstName/{firstName}", Customer[].class, "Alice");
-//            if (customersByFirstName != null) {
-//                Arrays.stream(customersByFirstName).forEach(System.out::println);
-//            }
-//        } catch (Exception e) {
-//            System.out.println("Error occurred: " + e.getMessage());
-//        }
-//    }
-//}
