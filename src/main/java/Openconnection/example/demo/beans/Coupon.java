@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "coupons")
@@ -20,7 +19,7 @@ public class Coupon {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int Id;
 
     @Column(nullable = false)
     private int companyId;
@@ -48,6 +47,15 @@ public class Coupon {
     @Column(nullable = false)
     @Min(0)
     private double price;
+
+    @Column(name = "discount_percentage", nullable = false)
+    @Min(0)
+    private double discountPercentage;
+
+    private int available;
+    @Column(nullable = false)
+    private boolean uniteAvailableSql;
+
 
     private String image;
 

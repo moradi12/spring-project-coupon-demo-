@@ -7,7 +7,7 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Table(name = "company")
+@Table(name = "companies")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,8 +30,14 @@ public class Company {
     private String password;
 
     @Singular
-    @OneToMany(cascade = CascadeType.ALL,
-            orphanRemoval = true,mappedBy = "companyId")
+    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "companyId")
     private List<Coupon> coupons;
 
+
+    //  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "companyId")
+    //    private List<Coupon> coupons;
+
+//    @Singular
+//    @OneToMany(cascade = CascadeType.REMOVE, orphanRemoval = true, mappedBy = "companyId")
+//    private List<Coupon> coupons;
 }

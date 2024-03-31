@@ -12,7 +12,8 @@ public enum ErrMsg {
     COUPON_ERROR("Coupon doesn't exist"),
     COUPON_ERROR_HAS_BEEN_USED("Coupon already Used"),
     COUPON_NOT_FOUND("Coupon not found"),
-
+    COUPON_OUT_OF_STOCK("Coupon is out of stock"),
+    COUPON_ALREADY_PURCHASED("Coupon purchased successfully"),
     /// Customers
     CUSTOMER_ALREADY_EXISTS("Customer already exists!"),
     CUSTOMER_NOT_FOUND("Customer not found"),
@@ -21,11 +22,9 @@ public enum ErrMsg {
     CUSTOMER_ERROR("Error occurred while handling customer operation"),
     ADMIN_NOT_FOUND("Error: Admin not found. Please check the provided details and try again"),
 
-
-
     // Login
     LOGIN_FAILED("Login failed. Invalid username or password"),
-
+    LOGIN_EXCEPTION("Login exception occurred"),
     // DataBase
     PERMISSION_DENIED("Permission denied. You do not have access"),
     DATABASE_CONNECTION_ERROR("Error connecting to the database"),
@@ -34,6 +33,8 @@ public enum ErrMsg {
     COMPANY_NOT_FOUND("Company not found"),
     COMPANY_ALREADY_EXISTS("Company already exists!"),
     COMPANY_ERROR("Company error occurred");
+
+
 
     private String msg;
 

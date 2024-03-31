@@ -2,11 +2,10 @@ package Openconnection.example.demo.Controllers;
 
 import Openconnection.example.demo.Exceptions.AdminException;
 import Openconnection.example.demo.Exceptions.CompanyAlreadyExistsException;
+import Openconnection.example.demo.Service.AdminService;
 import Openconnection.example.demo.beans.Company;
 import Openconnection.example.demo.beans.Customer;
-import Openconnection.example.demo.Service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -50,7 +49,7 @@ public class AdminController {
     }
 
     @GetMapping("/companies")
-    public List<Company> getAllCompanies() {
+    public List<Company> getAllCompanies(@RequestHeader(name = "Autorotation") String token) {
         return adminService.getAllCompanies();
     }
 
@@ -72,7 +71,7 @@ public class AdminController {
     @PutMapping("/customers/{customerId}")
     public String updateCustomer(@PathVariable int customerId, @RequestBody Customer customer) {
         try {
-            customer.setId(customerId);
+            customer.setCustomerID(customerId);
             adminService.updateCustomer(customer);
             return "Customer updated successfully!";
         } catch (AdminException e) {

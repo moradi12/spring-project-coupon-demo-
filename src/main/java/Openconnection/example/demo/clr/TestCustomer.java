@@ -1,101 +1,108 @@
 package Openconnection.example.demo.clr;
 
+import Openconnection.example.demo.Service.CompanyService;
 import Openconnection.example.demo.Service.CouponService;
 import Openconnection.example.demo.Service.CustomerService;
 import Openconnection.example.demo.beans.Customer;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
+
+@RequiredArgsConstructor
 @Component
-@Order(2) // Set order value
+@Order(2)
 public class TestCustomer implements CommandLineRunner {
-
     private final CustomerService customerService;
+    private final CompanyService companyService;
     private final CouponService couponService;
-
-    @Autowired
-    public TestCustomer(CustomerService customerService, CouponService couponService) {
-        this.customerService = customerService;
-        this.couponService = couponService;
-    }
 
     @Override
     public void run(String... args) throws Exception {
         try {
-            System.out.println("Adding predefined customers...");
 
-            System.out.println("Adding customer 1...");
+            System.out.println("Adding customer 1...\n");
             Customer customer1 = Customer.builder()
-                    .id(1)
+                    .customerID(1)
                     .firstName("Idan")
                     .lastName("Naor")
                     .email("john@mail.com")
                     .password("password123")
-                    .coupon(couponService.getOneCoupon(1))
                     .build();
             customerService.addCustomer(customer1);
+            System.out.println("Customer 1 added successfully.\n");
 
-
-            System.out.println("Adding customer 3...");
             Customer customer3 = Customer.builder()
-                    .id(3)
+                    .customerID(3)
                     .firstName("Alice")
                     .lastName("Johnson")
                     .email("alice@mail.com")
                     .password("password789")
-                    .coupon(couponService.getOneCoupon(3))
                     .build();
             customerService.addCustomer(customer3);
+            System.out.println("Customer 2 added successfully.\n");
 
-            System.out.println("Adding customer 4...");
             Customer customer4 = Customer.builder()
-                    .id(4)
+                    .customerID(4)
                     .firstName("Ofir")
                     .lastName("Cool")
                     .email("ofir@example.com")
                     .password("ofirPassword")
-                    .coupon(couponService.getOneCoupon(4))
                     .build();
             customerService.addCustomer(customer4);
+            System.out.println("Customer 3 added successfully.\n");
 
-
-            System.out.println("Adding customer 5...");
             Customer customer5 = Customer.builder()
-
-                    .id(5)
+                    .customerID(5)
                     .firstName("Danit")
                     .lastName("DanitD")
                     .email("Danit@example.com")
                     .password("Danit212121")
-                    .coupon(couponService.getOneCoupon(5))
                     .build();
             customerService.addCustomer(customer5);
+            System.out.println("Customer 4 added successfully.\n");
 
-
-            System.out.println("Adding customer 5...");
             Customer customer6 = Customer.builder()
-                    .id(6)
+                    .customerID(6)
                     .firstName("Ben")
                     .lastName("Mocher")
                     .email("Ben@example.com")
-                    .password("Benew")
-                    .coupon(couponService.getOneCoupon(6))
+                    .password("Ben333ew")
                     .build();
             customerService.addCustomer(customer6);
+            System.out.println("Customer 5 added successfully.\n");
 
 
-
+            System.out.println("========== Printing all customers ==========\n");
+            couponService.getAllCoupons().forEach(coupon -> System.out.println(coupon + "\n"));
             // Printing all customers
-            System.out.println("All Customers after adding:");
+//            System.out.println("All Customers after adding");
+//            customerService.getAllCustomers().forEach(System.out::println);
+//
+//            // Deleting a customer with ID 2
+//            System.out.println("Deleting customer with ID 2");
+//            //customerService.deleteCustomer(2);
+//            System.out.println("Remaining Customers after deletion");
             customerService.getAllCustomers().forEach(System.out::println);
 
-            // Deleting a customer with ID 2
-            System.out.println("Deleting customer with ID 2...");
-            //customerService.deleteCustomer(2);
-            System.out.println("Remaining Customers after deletion:");
+            couponService.addCouponPurchase(1, 1);
+            couponService.addCouponPurchase(2, 2);
+            couponService.addCouponPurchase(3, 3);
+            couponService.addCouponPurchase(4, 4);
+            couponService.addCouponPurchase(5, 5);
+            couponService.addCouponPurchase(5, 1);
+
+            customerService.deleteCustomer(4);
+            System.out.println("Customer with id " + 4 + " deleted successfully.");
+
+
+            System.out.println("========== Printing all customers after Delete ==========\n");
             customerService.getAllCustomers().forEach(System.out::println);
+
+
         } catch (Exception e) {
             System.out.println("Error occurred: " + e.getMessage());
         }

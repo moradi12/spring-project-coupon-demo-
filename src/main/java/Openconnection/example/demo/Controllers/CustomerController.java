@@ -1,57 +1,45 @@
 package Openconnection.example.demo.Controllers;
 
-import Openconnection.example.demo.Exceptions.CompanyNotFoundException;
-import Openconnection.example.demo.Exceptions.CustomerException;
-import Openconnection.example.demo.Exceptions.ErrMsg;
+import Openconnection.example.demo.Exceptions.CouponNotFoundException;
+import Openconnection.example.demo.Exceptions.CouponOutOfStock;
+import Openconnection.example.demo.Exceptions.CustomerExceptionException;
+import Openconnection.example.demo.Service.CouponService;
 import Openconnection.example.demo.Service.CustomerService;
-import Openconnection.example.demo.beans.Customer;
-import jakarta.validation.Valid;
+import Openconnection.example.demo.beans.Company;
+import Openconnection.example.demo.beans.Coupon;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+//get system coupon
+//get customer coupon
+//purchase coupon
 @RestController
 @RequestMapping("/api/customer")
 @RequiredArgsConstructor
-public class CustomerController {
 
+public class CustomerController {
+    private final CouponService couponService;
     private final CustomerService customerService;
 
-    @PostMapping("/login")
-    public Map<String, Boolean> login(@RequestParam String email, @RequestParam String password) throws CustomerException, CompanyNotFoundException {
-        boolean isAuthenticated = customerService.Login(email, password);
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("authenticated", isAuthenticated);
-        return response;
+    @GetMapping("/all")
+    public List<Coupon> getAllCoupons() {
+        return couponService.getAllCoupons();
     }
 
-    @PostMapping("/register")
-    public void registerCustomer(@Valid @RequestBody Customer customer) throws CustomerException {
-        customerService.addCustomer(customer);
+
+    @GetMapping("/{customerId}/coupons")
+    public List<Coupon> getCustomerCoupons(@PathVariable int customerId) throws CustomerExceptionException {
+        return customerService.getCustomerCoupons(customerId);
     }
 
-    @PutMapping("/update/{customerId}")
-    public void updateCustomer(@PathVariable int customerId, @Valid @RequestBody Customer customer) throws CustomerException {
-        customer.setId(customerId); // Set the ID of the customer object from the path
-        customerService.updateCustomer(customer);
-    }
 
-    @DeleteMapping("/delete/{customerId}")
-    public void deleteCustomer(@PathVariable int customerId) throws CustomerException {
-        customerService.deleteCustomer(customerId);
-    }
-
-    @GetMapping("/get/{customerId}")
-    public Customer getCustomer(@PathVariable int customerId) throws CustomerException {
-        return customerService.getOneCustomer(customerId).orElseThrow(() -> new CustomerException(ErrMsg.CUSTOMER_NOT_FOUND));
-    }
-
-    @GetMapping("/getAll")
-    public List<Customer> getAllCustomers() throws CustomerException {
-        return customerService.getAllCustomers();
+    @PostMapping("/coupon/purchase")
+    public void purchaseCoupon(@RequestParam int couponID, @RequestParam int customerID) throws CouponNotFoundException, CouponOutOfStock, CustomerExceptionException {
+        customerService.CouponPurchase(couponID, customerID);
     }
 }
+
+
+

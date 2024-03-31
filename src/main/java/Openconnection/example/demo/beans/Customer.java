@@ -16,7 +16,7 @@ import java.util.List;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer customerID;
 
     @NotNull
     @Size(min = 3, max = 20)
@@ -38,7 +38,12 @@ public class Customer {
     @Column(nullable = false, length = 40)
     private String password;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "customers_coupons", joinColumns = @JoinColumn(name = "customerId"),
+
+            inverseJoinColumns = @JoinColumn(name = "couponId"))
     @Singular
     private List<Coupon> coupons;
+
+
 }
